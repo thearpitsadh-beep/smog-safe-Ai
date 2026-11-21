@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-20",
+  "clean_copy": true,
+  "tests": [
+    {
+      "case": "Clean startup /health",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Static UI loaded",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Transparent demo data",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Personalized daily plan",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Family AI brief fallback",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Chat fallback",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Editable impact math",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "case": "Spoofed live AQI rejected",
+      "status": 400,
+      "ok": true
+    },
+    {
+      "case": "Unknown snapshot rejected",
+      "status": 400,
+      "ok": true
+    }
+  ]
+}

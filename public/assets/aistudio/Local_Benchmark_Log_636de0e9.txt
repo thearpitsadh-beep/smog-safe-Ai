@@ -1,0 +1,34 @@
+
+> smogsafe-ai-executive-v4@4.0.0 benchmark
+> node scripts/benchmark.mjs
+
+{
+  "scope": "100 requests to localhost only; excludes Gemini, Open-Meteo, TLS, hosting and high concurrency",
+  "failures": 0,
+  "results": {
+    "health": {
+      "requests": 25,
+      "medianMs": 0.7,
+      "p95Ms": 3.14,
+      "maxMs": 18.11
+    },
+    "demo": {
+      "requests": 25,
+      "medianMs": 0.62,
+      "p95Ms": 1.25,
+      "maxMs": 1.4
+    },
+    "planning": {
+      "requests": 25,
+      "medianMs": 1.11,
+      "p95Ms": 1.72,
+      "maxMs": 5.04
+    },
+    "impact": {
+      "requests": 25,
+      "medianMs": 0.86,
+      "p95Ms": 1.18,
+      "maxMs": 1.73
+    }
+  }
+}

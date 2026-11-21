@@ -1,0 +1,5 @@
+
+> smogsafe-ai-executive-v4@4.0.0 browser:accessibility
+> python3 scripts/browser_accessibility.py
+
+Accessibility smoke tests passed: 3 viewports

@@ -1,0 +1,8 @@
+
+> smogsafe-ai-executive-v4@4.0.0 browser:offline
+> python3 docs/build_standalone_demo.py && python3 scripts/browser_e2e.py
+
+Generated standalone demo: 98028 characters
+Offline app browser E2E passed: 2 viewports. Results: /mnt/data/v4_work/SmogSafe_AI_Executive_v4/docs/BROWSER_E2E_RESULTS.json
+desktop contrast [{'selector': '.page-head .lead', 'ratio': 7.46, 'foreground': [59, 85, 92], 'background': [246, 248, 247]}, {'selector': '.eyebrow-mini', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.tiny-label', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.chart-key', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.profile-card p', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.chart-footer', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}]
+mobile contrast [{'selector': '.page-head .lead', 'ratio': 7.46, 'foreground': [59, 85, 92], 'background': [246, 248, 247]}, {'selector': '.eyebrow-mini', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.tiny-label', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.chart-key', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.profile-card p', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}, {'selector': '.chart-footer', 'ratio': 7.95, 'foreground': [59, 85, 92], 'background': [255, 255, 255]}]

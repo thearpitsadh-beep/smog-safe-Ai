@@ -1,0 +1,20 @@
+[
+  {
+    "viewport": "desktop",
+    "trustTransitionsPassed": true,
+    "expiredReadingCleared": true,
+    "failedReadingCleared": true,
+    "racedCityRequestIgnored": true,
+    "pageErrors": [],
+    "horizontalOverflow": false
+  },
+  {
+    "viewport": "mobile",
+    "trustTransitionsPassed": true,
+    "expiredReadingCleared": true,
+    "failedReadingCleared": true,
+    "racedCityRequestIgnored": true,
+    "pageErrors": [],
+    "horizontalOverflow": false
+  }
+]

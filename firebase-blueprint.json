@@ -1,0 +1,298 @@
+{
+  "entities": {
+    "UserWorkspaceMeta": {
+      "title": "UserWorkspaceMeta",
+      "description": "Non-PII root ownership anchor for a verified household account.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the account owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "schemaVersion": {
+          "type": "number",
+          "description": "Schema revision number (1)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server-validated creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server-validated update timestamp."
+        }
+      },
+      "required": ["uid", "schemaVersion", "createdAt", "updatedAt"]
+    },
+    "HouseholdCloudProfile": {
+      "title": "HouseholdCloudProfile",
+      "description": "Private household air-quality profile stored strictly under owner PII-isolated subcollection.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner UID matching path userId.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified account email address (PII isolated to owner private document).",
+          "maxLength": 254
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Optional user display name.",
+          "maxLength": 80
+        },
+        "city": {
+          "type": "string",
+          "description": "Selected city label.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "country": {
+          "type": "string",
+          "description": "Country name.",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Geographic latitude (-90 to 90)."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Geographic longitude (-180 to 180)."
+        },
+        "schedule": {
+          "type": "string",
+          "enum": ["school", "office", "home", "mixed"],
+          "description": "Primary daily routine."
+        },
+        "commute": {
+          "type": "string",
+          "enum": ["car", "bus", "metro", "walk", "cycle", "remote"],
+          "description": "Primary commute mode."
+        },
+        "budget": {
+          "type": "string",
+          "enum": ["low", "medium", "flexible"],
+          "description": "Household budget tier."
+        },
+        "children": {
+          "type": "boolean",
+          "description": "Whether children live in the household."
+        },
+        "seniors": {
+          "type": "boolean",
+          "description": "Whether older adults live in the household."
+        },
+        "sensitive": {
+          "type": "boolean",
+          "description": "Whether an air-sensitive member lives in the household."
+        },
+        "purifier": {
+          "type": "boolean",
+          "description": "Whether the household has a HEPA purifier."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server update timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "displayName",
+        "city",
+        "country",
+        "latitude",
+        "longitude",
+        "schedule",
+        "commute",
+        "budget",
+        "children",
+        "seniors",
+        "sensitive",
+        "purifier",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SavedPlanSnapshot": {
+      "title": "SavedPlanSnapshot",
+      "description": "Owner-scoped saved daily air plan & context snapshot (never claims fabricated live sensor status).",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner UID matching path userId.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "country": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "dataStatus": {
+          "type": "string",
+          "enum": ["modeled-live-forecast", "illustrative-demo"],
+          "description": "Provenance label distinguishing modeled Open-Meteo forecasts from illustrative demo scenarios."
+        },
+        "scale": {
+          "type": "string",
+          "enum": ["US AQI"]
+        },
+        "usAqi": {
+          "type": "number"
+        },
+        "pm25": {
+          "type": "number"
+        },
+        "forecastTimestamp": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "sourceLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "intensity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "actionTitles": {
+          "type": "array",
+          "description": "Bounded list of 1 to 3 daily action titles."
+        },
+        "schedule": {
+          "type": "string",
+          "enum": ["school", "office", "home", "mixed"]
+        },
+        "commute": {
+          "type": "string",
+          "enum": ["car", "bus", "metro", "walk", "cycle", "remote"]
+        },
+        "budget": {
+          "type": "string",
+          "enum": ["low", "medium", "flexible"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "city",
+        "country",
+        "latitude",
+        "longitude",
+        "dataStatus",
+        "scale",
+        "usAqi",
+        "pm25",
+        "forecastTimestamp",
+        "sourceLabel",
+        "intensity",
+        "actionTitles",
+        "schedule",
+        "commute",
+        "budget",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "HouseholdExposureLog": {
+      "title": "HouseholdExposureLog",
+      "description": "Owner-scoped household air-quality routine check-in log.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "city": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "usAqi": {
+          "type": "number"
+        },
+        "dataStatus": {
+          "type": "string",
+          "enum": ["modeled-live-forecast", "illustrative-demo"]
+        },
+        "actionTaken": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "city", "usAqi", "dataStatus", "actionTaken", "note", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserWorkspaceMeta" },
+      "description": "Non-PII root document anchoring verified user ownership."
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/HouseholdCloudProfile" },
+      "description": "PII-isolated private household profile (docId == 'profile')."
+    },
+    "/users/{userId}/plans/{planId}": {
+      "schema": { "$ref": "#/entities/SavedPlanSnapshot" },
+      "description": "Owner-scoped saved daily routine and air-quality snapshots."
+    },
+    "/users/{userId}/airLogs/{logId}": {
+      "schema": { "$ref": "#/entities/HouseholdExposureLog" },
+      "description": "Owner-scoped household routine check-in logs."
+    }
+  }
+}

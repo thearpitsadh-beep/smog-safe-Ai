@@ -1,0 +1,4515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b292e" />
+  <meta name="description" content="SmogSafe AI: a family-first assistant for urban air quality, daily routines, indoor air and sustainable travel." />
+  <title>SmogSafe AI Executive v4 — Breathe better, together</title>
+
+  <style>
+:root {
+
+  --ink: #18333a;
+
+  --muted: #75898e;
+
+  --teal: #0d4d4a;
+
+  --deep: #0a292f;
+
+  --mint: #dff4e9;
+
+  --mint-ink: #277b60;
+
+  --surface: #ffffff;
+
+  --bg: #f6f8f7;
+
+  --border: #e7eeec;
+
+  --shadow: 0 14px 35px rgba(23,49,45,.035);
+
+  --radius: 18px;
+
+  --focus: #1c9877;
+
+}
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+body {
+
+  margin: 0;
+
+  font-family: Inter,"Segoe UI",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+
+  color: var(--ink);
+
+  background: var(--bg);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+
+}
+
+button,input,select {
+
+  font: inherit;
+
+}
+
+button {
+
+  cursor: pointer;
+
+}
+
+button:disabled {
+
+  cursor: wait;
+
+  opacity: .65;
+
+}
+
+a {
+
+  color: inherit;
+
+}
+
+a:hover {
+
+  color: var(--mint-ink);
+
+}
+
+:focus-visible {
+
+  outline: 3px solid var(--focus) !important;
+
+  outline-offset: 3px;
+
+}
+
+svg {
+
+  display: block;
+
+}
+
+.icon {
+
+  width: 19px;
+
+  height: 19px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+  flex: none;
+
+}
+
+.icon-defs,.sr-only {
+
+  position: absolute;
+
+  width: 1px;
+
+  height: 1px;
+
+  overflow: hidden;
+
+  clip: rect(0,0,0,0);
+
+  white-space: nowrap;
+
+}
+
+.skip-link {
+
+  position: absolute;
+
+  left: 12px;
+
+  top: -60px;
+
+  background: #fff;
+
+  color: #123;
+
+  border-radius: 8px;
+
+  padding: 10px;
+
+  z-index: 100;
+
+}
+
+.skip-link:focus {
+
+  top: 12px;
+
+}
+
+.app-shell {
+
+  display: flex;
+
+  min-height: 100vh;
+
+}
+
+.sidebar {
+
+  background: var(--deep);
+
+  color: #c9deda;
+
+  flex: 0 0 248px;
+
+  min-height: 100vh;
+
+  position: sticky;
+
+  top: 0;
+
+  height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 30px 17px 22px;
+
+  z-index: 20;
+
+}
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin: 1px 9px 51px;
+
+  color: #fff;
+
+}
+
+.brand-symbol {
+
+  width: 40px;
+
+  height: 40px;
+
+  background: linear-gradient(145deg,#78c8a3,#b7eac8);
+
+  color: #064337;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 12px;
+
+  box-shadow: 0 8px 18px rgba(87,205,150,.15);
+
+}
+
+.brand-symbol .icon {
+
+  height: 25px;
+
+  width: 25px;
+
+  stroke-width: 2.4;
+
+}
+
+.brand strong {
+
+  font-size: 22px;
+
+  font-weight: 780;
+
+  line-height: 1;
+
+  letter-spacing: -1.2px;
+
+}
+
+.brand-dot {
+
+  color: #8ce0b3;
+
+}
+
+.brand small {
+
+  display: block;
+
+  color: #87aaac;
+
+  font-size: 10px;
+
+  letter-spacing: .35px;
+
+  margin-top: 4px;
+
+}
+
+.sidebar-caption {
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  letter-spacing: 1.6px;
+
+  margin: 0 13px 17px;
+
+  color: #73959a;
+
+}
+
+.side-nav {
+
+  display: grid;
+
+  gap: 7px;
+
+}
+
+.nav-item {
+
+  border: none;
+
+  background: transparent;
+
+  color: #9bb9b9;
+
+  text-align: left;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  height: 48px;
+
+  border-radius: 11px;
+
+  padding: 0 14px;
+
+  font-weight: 570;
+
+  position: relative;
+
+  transition: background .15s,color .15s;
+
+}
+
+.nav-item:hover,.nav-item:focus-visible {
+
+  background: #173c40;
+
+  color: white;
+
+}
+
+.nav-item.active {
+
+  background: #1a4846;
+
+  color: #e0fff1;
+
+  font-weight: 700;
+
+}
+
+.nav-item.active:before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 11px;
+
+  bottom: 11px;
+
+  width: 3px;
+
+  background: #8bd7aa;
+
+  border-radius: 3px;
+
+}
+
+.nav-item .icon {
+
+  height: 18px;
+
+  width: 18px;
+
+}
+
+.nav-indicator {
+
+  width: 6px;
+
+  height: 6px;
+
+  background: #76d9ad;
+
+  border-radius: 50%;
+
+  margin-left: auto;
+
+}
+
+.sidebar-spacer {
+
+  flex: 1;
+
+}
+
+.side-guide {
+
+  background: linear-gradient(145deg,#1c514a,#153e41);
+
+  border: 1px solid rgba(169,237,195,.12);
+
+  border-radius: 16px;
+
+  padding: 18px;
+
+  margin: 24px 2px 21px;
+
+}
+
+.side-guide-icon {
+
+  width: 38px;
+
+  height: 38px;
+
+  border-radius: 10px;
+
+  background: #d2f2df;
+
+  color: #1c725c;
+
+  display: grid;
+
+  place-items: center;
+
+  margin-bottom: 17px;
+
+}
+
+.side-guide strong {
+
+  color: #eafff6;
+
+  font-size: 15px;
+
+  line-height: 1.35;
+
+  display: block;
+
+  max-width: 170px;
+
+}
+
+.side-guide p {
+
+  font-size: 12px;
+
+  color: #a9c6bd;
+
+  line-height: 1.65;
+
+  margin: 10px 0 17px;
+
+}
+
+.guide-link {
+
+  border: 0;
+
+  background: none;
+
+  color: #a9f0cc;
+
+  font-weight: 700;
+
+  font-size: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0;
+
+}
+
+.guide-link .icon {
+
+  width: 15px;
+
+  height: 15px;
+
+}
+
+.sidebar-bottom {
+
+  font-size: 10px;
+
+  color: #78969a;
+
+  border-top: 1px solid #244348;
+
+  padding-top: 19px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+}
+
+.side-bottom-right {
+
+  margin-left: auto;
+
+}
+
+.status-pulse,.chat-mode-dot {
+
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #8addab;
+
+  box-shadow: 0 0 0 4px rgba(138,221,171,.11);
+
+}
+
+.workspace {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+.topbar {
+
+  height: 74px;
+
+  background: #fff;
+
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 47px;
+
+}
+
+.topbar-left,.topbar-right {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 19px;
+
+}
+
+.breadcrumb {
+
+  font-size: 11px;
+
+  font-weight: 750;
+
+  letter-spacing: 1.25px;
+
+  color: #99aaa9;
+
+}
+
+.breadcrumb span {
+
+  color: #c6d0ce;
+
+  margin: 0 9px;
+
+}
+
+.breadcrumb strong {
+
+  color: #335356;
+
+}
+
+.current-date {
+
+  color: #89999e;
+
+  font-size: 12px;
+
+}
+
+.topbar-divider {
+
+  height: 22px;
+
+  width: 1px;
+
+  background: var(--border);
+
+}
+
+.user-avatar {
+
+  width: 34px;
+
+  height: 34px;
+
+  border-radius: 50%;
+
+  display: grid;
+
+  place-items: center;
+
+  background: #ddf2e6;
+
+  color: #276c56;
+
+  font-weight: 790;
+
+  font-size: 13px;
+
+}
+
+.mobile-menu {
+
+  display: none;
+
+}
+
+main {
+
+  padding: 37px 46px 50px;
+
+  max-width: 1670px;
+
+  margin: 0 auto;
+
+  min-height: calc(100vh - 124px);
+
+}
+
+.view[hidden] {
+
+  display: none !important;
+
+}
+
+.page-head {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 22px;
+
+  margin-bottom: 28px;
+
+}
+
+.eyebrow {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #599f81;
+
+  font-size: 10px;
+
+  font-weight: 820;
+
+  letter-spacing: 1.9px;
+
+}
+
+.eyebrow-line {
+
+  width: 17px;
+
+  height: 2px;
+
+  background: #54a27e;
+
+}
+
+.page-head h1 {
+
+  font-size: clamp(32px,3.1vw,43px);
+
+  font-weight: 780;
+
+  letter-spacing: -2.05px;
+
+  line-height: 1.12;
+
+  margin: 13px 0 10px;
+
+}
+
+.page-head h1 em,.lower-head h2 em {
+
+  font-style: normal;
+
+  color: #3f9b78;
+
+}
+
+.lead {
+
+  font-size: 13px;
+
+  color: #82939a;
+
+  line-height: 1.7;
+
+  max-width: 660px;
+
+  margin: 0;
+
+}
+
+.page-actions {
+
+  align-self: center;
+
+}
+
+.btn {
+
+  height: 41px;
+
+  border-radius: 10px;
+
+  padding: 0 15px;
+
+  display: inline-flex;
+
+  gap: 9px;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 12px;
+
+  font-weight: 720;
+
+  white-space: nowrap;
+
+  transition: background .2s,transform .2s;
+
+}
+
+.btn:hover {
+
+  transform: translateY(-1px);
+
+}
+
+.btn .icon {
+
+  width: 15px;
+
+  height: 15px;
+
+}
+
+.btn-quiet {
+
+  border: 1px solid #dce8e5;
+
+  background: #fff;
+
+  color: #4d7676;
+
+}
+
+.btn-line {
+
+  border: 1px solid #dee9e5;
+
+  background: #fff;
+
+  color: #4e7471;
+
+}
+
+.btn-primary {
+
+  color: #fff;
+
+  background: #145a4f;
+
+  border: 1px solid #145a4f;
+
+  box-shadow: 0 5px 12px rgba(17,89,79,.07);
+
+}
+
+.btn-primary:hover {
+
+  background: #0d493f;
+
+}
+
+.btn-block {
+
+  width: 100%;
+
+}
+
+.location-bar {
+
+  background: #fff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 15px;
+
+  min-height: 91px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 17px 22px;
+
+  gap: 18px;
+
+  margin-bottom: 13px;
+
+  box-shadow: var(--shadow);
+
+}
+
+.location-main {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+}
+
+.location-icon {
+
+  width: 41px;
+
+  height: 41px;
+
+  border-radius: 12px;
+
+  background: #e5f3ed;
+
+  color: #32876c;
+
+  display: grid;
+
+  place-items: center;
+
+}
+
+.tiny-label {
+
+  font-size: 9px;
+
+  font-weight: 780;
+
+  letter-spacing: 1.5px;
+
+  color: #91a0a1;
+
+}
+
+.location-name {
+
+  font-weight: 770;
+
+  font-size: 14px;
+
+  margin-top: 5px;
+
+}
+
+.location-controls {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+.city-search {
+
+  position: relative;
+
+}
+
+.city-search input {
+
+  height: 41px;
+
+  width: 188px;
+
+  padding: 0 40px 0 13px;
+
+  background: #f8faf9;
+
+  border: 1px solid #edf2f0;
+
+  border-radius: 10px;
+
+  color: #36585d;
+
+  outline-color: #368f75;
+
+  font-size: 12px;
+
+}
+
+.city-search input::placeholder {
+
+  color: #a3b2b2;
+
+}
+
+.city-submit {
+
+  position: absolute;
+
+  right: 6px;
+
+  top: 5px;
+
+  height: 31px;
+
+  width: 31px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: none;
+
+  background: transparent;
+
+  color: #608b80;
+
+  border-radius: 7px;
+
+}
+
+.city-submit .icon {
+
+  width: 16px;
+
+  height: 16px;
+
+}
+
+.search-results {
+
+  background: #fff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  box-shadow: 0 14px 30px rgba(5,31,28,.12);
+
+  margin: -7px 0 17px;
+
+  padding: 8px;
+
+  position: relative;
+
+  z-index: 4;
+
+}
+
+.search-results button {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #234b4d;
+
+  width: 100%;
+
+  padding: 11px;
+
+  border-radius: 7px;
+
+  text-align: left;
+
+}
+
+.search-results button:hover {
+
+  background: #f2f8f5;
+
+}
+
+.search-results p {
+
+  padding: 10px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+}
+
+.notice {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 14px;
+
+  padding: 12px 16px;
+
+  background: #fff8e9;
+
+  border: 1px solid #f0e4c8;
+
+  color: #9a6e29;
+
+  border-radius: 11px;
+
+  margin-bottom: 22px;
+
+  font-size: 11px;
+
+}
+
+.notice-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  flex-wrap: wrap;
+
+}
+
+.notice strong {
+
+  font-size: 10px;
+
+  letter-spacing: .9px;
+
+}
+
+.notice span:not(.source-pill) {
+
+  font-size: 11px;
+
+}
+
+.demo-dot {
+
+  width: 8px;
+
+  height: 8px;
+
+  background: #e1b05a;
+
+  border-radius: 50%;
+
+}
+
+.source-pill {
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+
+  background: #fff0cd;
+
+  color: #996a28;
+
+  font-size: 9px !important;
+
+  font-weight: 780;
+
+  letter-spacing: .8px;
+
+  white-space: nowrap;
+
+}
+
+.notice.live-notice {
+
+  background: #edf9f2;
+
+  border-color: #d3ecd9;
+
+  color: #237257;
+
+}
+
+.notice.live-notice .source-pill {
+
+  background: #d8f4e4;
+
+  color: #247359;
+
+}
+
+.notice.live-notice .demo-dot {
+
+  background: #55b98a;
+
+}
+
+.dashboard-grid {
+
+  display: grid;
+
+  grid-template-columns: minmax(0,1fr) 315px;
+
+  gap: 20px;
+
+  align-items: start;
+
+}
+
+.dashboard-main,.dashboard-side {
+
+  display: grid;
+
+  gap: 20px;
+
+  min-width: 0;
+
+}
+
+.metrics-grid {
+
+  display: grid;
+
+  grid-template-columns: 1.15fr 1fr 1fr;
+
+  gap: 15px;
+
+}
+
+.card {
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+}
+
+.metrics-grid .card {
+
+  min-width: 0;
+
+  min-height: 186px;
+
+  padding: 20px 19px 17px;
+
+}
+
+.tile-top,.section-card-head {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+}
+
+.tile-label {
+
+  color: #87999b;
+
+  letter-spacing: 1.2px;
+
+  font-weight: 810;
+
+  font-size: 9.5px;
+
+}
+
+.tile-top>.icon {
+
+  width: 16px;
+
+  height: 16px;
+
+  color: #74a18f;
+
+}
+
+.aqi-tile {
+
+  background: linear-gradient(133deg,#0b4f4e 0%,#176d63 75%,#277a6a 100%);
+
+  color: #fff !important;
+
+  border: none;
+
+}
+
+.aqi-tile .tile-label {
+
+  color: #b5ded2;
+
+}
+
+.aqi-tile .tile-top .icon {
+
+  color: #acd9cd;
+
+}
+
+.aqi-contents {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 13px;
+
+}
+
+.aqi-number {
+
+  font-size: 64px;
+
+  font-weight: 810;
+
+  line-height: 1;
+
+  letter-spacing: -3px;
+
+}
+
+.aqi-status {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #f7fff9;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  margin-top: 8px;
+
+}
+
+.aqi-status-dot {
+
+  height: 8px;
+
+  width: 8px;
+
+  border-radius: 50%;
+
+  background: #ffb37c;
+
+}
+
+.aqi-meter {
+
+  width: 90px;
+
+  height: 90px;
+
+  background: conic-gradient(#b7e5c0 0deg,#edf3a8 60deg,#ffba6d 120deg,#f47b73 200deg,#b56da1 270deg,#6b427d 340deg);
+
+  border-radius: 50%;
+
+  display: grid;
+
+  place-items: center;
+
+  transform: rotate(-20deg);
+
+  box-shadow: 0 0 0 6px rgba(255,255,255,.08);
+
+}
+
+.aqi-meter-inner {
+
+  width: 67px;
+
+  height: 67px;
+
+  background: #155e56;
+
+  border-radius: 50%;
+
+  display: grid;
+
+  place-items: center;
+
+  transform: rotate(20deg);
+
+}
+
+.aqi-meter-inner .icon {
+
+  width: 27px;
+
+  height: 27px;
+
+  color: #def9ed;
+
+}
+
+.metric-foot {
+
+  margin: 12px 0 0;
+
+  color: #899b9f;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+}
+
+.aqi-tile .metric-foot {
+
+  color: #c1e4d6;
+
+  margin-top: 13px;
+
+}
+
+.tile-symbol {
+
+  background: #f0f5f1;
+
+  border-radius: 5px;
+
+  color: #608a77;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  padding: 4px 6px;
+
+}
+
+.pollutant-value {
+
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 8px;
+
+  margin: 25px 0 12px;
+
+}
+
+.pollutant-value strong {
+
+  font-size: 42px;
+
+  font-weight: 780;
+
+  letter-spacing: -1.7px;
+
+  line-height: 1;
+
+}
+
+.pollutant-value span {
+
+  color: #94a5a6;
+
+  font-size: 12px;
+
+}
+
+.mini-line {
+
+  height: 24px;
+
+  color: #69ad92;
+
+  opacity: .75;
+
+}
+
+.mini-line svg {
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+.mini-line-amber {
+
+  color: #dda95a;
+
+}
+
+.chart-card {
+
+  padding: 22px 22px 13px;
+
+  min-height: 288px;
+
+}
+
+.eyebrow-mini {
+
+  font-size: 9px;
+
+  font-weight: 850;
+
+  letter-spacing: 1.6px;
+
+  color: #62a08a;
+
+}
+
+.section-card-head h2,.lower-head h2 {
+
+  font-size: 18px;
+
+  font-weight: 780;
+
+  letter-spacing: -.5px;
+
+  margin: 6px 0 0;
+
+}
+
+.chart-key {
+
+  display: flex;
+
+  gap: 7px;
+
+  align-items: center;
+
+  color: #93a3a4;
+
+  font-size: 10px;
+
+  font-weight: 580;
+
+  margin-top: 9px;
+
+}
+
+.chart-key-dot {
+
+  width: 9px;
+
+  height: 9px;
+
+  background: #6baf91;
+
+  border-radius: 50%;
+
+}
+
+.chart-frame {
+
+  height: 185px;
+
+  margin: 8px 0 0;
+
+}
+
+.forecast-chart {
+
+  height: 100%;
+
+  width: 100%;
+
+  overflow: visible;
+
+}
+
+.chart-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  border-top: 1px solid #f0f4f2;
+
+  padding-top: 13px;
+
+  color: #9baaa8;
+
+  font-size: 10px;
+
+}
+
+.chart-footer span:first-child {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+}
+
+.chart-footer .icon {
+
+  width: 14px;
+
+  height: 14px;
+
+}
+
+.insight-banner {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 17px;
+
+  min-height: 123px;
+
+  background: #e6f4ed;
+
+  border: 1px solid #d8ecdf;
+
+  border-radius: 16px;
+
+  padding: 19px 23px;
+
+}
+
+.insight-icon {
+
+  background: #d0ebdb;
+
+  color: #3b9c76;
+
+  min-height: 52px;
+
+  min-width: 52px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 14px;
+
+}
+
+.insight-icon .icon {
+
+  width: 25px;
+
+  height: 25px;
+
+}
+
+.insight-kicker {
+
+  font-size: 9px;
+
+  letter-spacing: 1.65px;
+
+  font-weight: 820;
+
+  color: #489476;
+
+}
+
+.insight-banner h2 {
+
+  font-size: 15px;
+
+  letter-spacing: -.35px;
+
+  line-height: 1.35;
+
+  margin: 5px 0;
+
+}
+
+.insight-banner p {
+
+  margin: 0;
+
+  color: #6e9586;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+}
+
+.insight-action {
+
+  width: 37px;
+
+  height: 37px;
+
+  border-radius: 50%;
+
+  border: 0;
+
+  background: #fff;
+
+  color: #3b9775;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+  margin-left: auto;
+
+}
+
+.profile-card {
+
+  padding: 24px;
+
+}
+
+.card-corner-icon {
+
+  height: 32px;
+
+  width: 32px;
+
+  color: #409175;
+
+  background: #eff8f2;
+
+  border-radius: 9px;
+
+  display: grid;
+
+  place-items: center;
+
+}
+
+.profile-lead {
+
+  font-size: 11px;
+
+  color: #8a9b9b;
+
+  line-height: 1.65;
+
+  margin: 12px 0 20px;
+
+}
+
+.profile-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+.profile-form>label,.impact-input label {
+
+  font-size: 11px;
+
+  color: #526c70;
+
+  font-weight: 740;
+
+  margin-bottom: 7px;
+
+}
+
+.profile-form select,.impact-input select,.impact-input input[type=number] {
+
+  width: 100%;
+
+  min-height: 40px;
+
+  border: 1px solid #e2ece8;
+
+  border-radius: 9px;
+
+  background: #f9fbfa;
+
+  color: #38585b;
+
+  outline-color: #54a78a;
+
+  padding: 0 11px;
+
+  font-size: 11px;
+
+  margin-bottom: 15px;
+
+}
+
+.profile-form fieldset {
+
+  padding: 14px 0 16px;
+
+  margin: 1px 0 7px;
+
+  border: none;
+
+  border-top: 1px solid #edf2f0;
+
+}
+
+.profile-form legend {
+
+  padding: 0 9px 0 0;
+
+  font-size: 11px;
+
+  color: #526c70;
+
+  font-weight: 740;
+
+}
+
+.checkrow {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin: 9px 0;
+
+  color: #748b8d;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+}
+
+.checkrow input {
+
+  accent-color: #298365;
+
+  width: 15px;
+
+  height: 15px;
+
+  margin: 0;
+
+}
+
+.profile-form .btn {
+
+  height: 43px;
+
+  font-size: 11px;
+
+}
+
+.quick-tip {
+
+  padding: 20px 18px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 14px;
+
+  background: #fff;
+
+}
+
+.quick-tip-icon {
+
+  width: 38px;
+
+  height: 38px;
+
+  border-radius: 12px;
+
+  color: #4b9d7e;
+
+  background: #edf9ef;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+}
+
+.quick-tip h3 {
+
+  font-size: 13px;
+
+  margin: 7px 0 7px;
+
+}
+
+.quick-tip p {
+
+  font-size: 11px;
+
+  line-height: 1.6;
+
+  color: #94a5a2;
+
+  margin: 0;
+
+}
+
+.lower-head {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: end;
+
+  gap: 20px;
+
+  margin: 32px 0 18px;
+
+}
+
+.lower-head h2 {
+
+  font-size: 24px;
+
+  letter-spacing: -1px;
+
+}
+
+.text-link {
+
+  background: transparent;
+
+  border: 0;
+
+  color: #287f64;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  font-size: 11px;
+
+  font-weight: 760;
+
+}
+
+.text-link .icon {
+
+  height: 15px;
+
+  width: 15px;
+
+}
+
+.overview-actions {
+
+  display: grid;
+
+  grid-template-columns: repeat(3,minmax(0,1fr));
+
+  gap: 16px;
+
+}
+
+.overview-action {
+
+  padding: 19px;
+
+  display: flex;
+
+  gap: 12px;
+
+  align-items: flex-start;
+
+  min-height: 150px;
+
+}
+
+.action-small-icon {
+
+  background: #ebf7f0;
+
+  color: #408a6f;
+
+  border-radius: 11px;
+
+  width: 37px;
+
+  height: 37px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+}
+
+.overview-action .action-time {
+
+  color: #93a5a2;
+
+  font-size: 9px;
+
+  font-weight: 810;
+
+  letter-spacing: 1.4px;
+
+}
+
+.overview-action h3 {
+
+  margin: 5px 0 7px;
+
+  line-height: 1.4;
+
+  font-size: 13px;
+
+}
+
+.overview-action p {
+
+  margin: 0;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  color: #809596;
+
+}
+
+.footer {
+
+  padding: 20px 47px 23px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  color: #91a4a2;
+
+  font-size: 10px;
+
+  border-top: 1px solid #edf2ef;
+
+  background: #fbfcfb;
+
+}
+
+.footer>div {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  flex-wrap: wrap;
+
+}
+
+.footer a {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  text-decoration: none;
+
+}
+
+.footer .icon {
+
+  width: 11px;
+
+  height: 11px;
+
+}
+
+.toast {
+
+  position: fixed;
+
+  right: 28px;
+
+  bottom: 24px;
+
+  z-index: 60;
+
+  max-width: min(420px,calc(100vw - 35px));
+
+  padding: 14px 18px;
+
+  background: #163e3f;
+
+  color: white;
+
+  box-shadow: 0 16px 36px rgba(0,0,0,.2);
+
+  border-radius: 12px;
+
+  font-size: 12px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform: translateY(12px);
+
+  transition: opacity .2s,transform .2s;
+
+}
+
+.toast.show {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
+}
+
+.plan-hero {
+
+  background: linear-gradient(110deg,#0c4948,#226c5b);
+
+  color: white;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 31px 34px;
+
+  overflow: hidden;
+
+  margin-bottom: 22px;
+
+}
+
+.plan-hero h2 {
+
+  font-size: 28px;
+
+  margin: 8px 0;
+
+  letter-spacing: -1px;
+
+}
+
+.plan-hero p {
+
+  max-width: 580px;
+
+  color: #c5e8dd;
+
+  margin: 0 0 16px;
+
+}
+
+.plan-hero .eyebrow-mini {
+
+  color: #a1ddbd;
+
+}
+
+.plan-hero-art {
+
+  color: #a1deba;
+
+  width: 140px;
+
+  margin-right: 30px;
+
+}
+
+.soft-badge {
+
+  background: #ffffff22;
+
+  color: #dbfff1;
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+
+  font-size: 10px;
+
+  font-weight: 730;
+
+}
+
+.plan-action-list {
+
+  display: grid;
+
+  grid-template-columns: repeat(3,minmax(0,1fr));
+
+  gap: 18px;
+
+}
+
+.plan-card {
+
+  padding: 24px;
+
+  min-height: 300px;
+
+}
+
+.plan-period {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  font-size: 10px;
+
+  font-weight: 820;
+
+  letter-spacing: 1.3px;
+
+  color: #55957b;
+
+}
+
+.plan-period svg {
+
+  color: #79a78c;
+
+}
+
+.plan-card h3 {
+
+  margin: 17px 0 11px;
+
+  font-size: 20px;
+
+  letter-spacing: -.5px;
+
+  line-height: 1.35;
+
+}
+
+.plan-card p {
+
+  font-size: 12px;
+
+  line-height: 1.8;
+
+  color: #758d8c;
+
+}
+
+.why-box {
+
+  border-top: 1px solid var(--border);
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  display: grid;
+
+  gap: 6px;
+
+}
+
+.why-box strong {
+
+  font-size: 10px;
+
+  color: #4d9878;
+
+}
+
+.why-box span {
+
+  font-size: 11px;
+
+  color: #819895;
+
+  line-height: 1.65;
+
+}
+
+.plan-tag {
+
+  font-size: 10px;
+
+  color: #44936f;
+
+  background: #e9f7ef;
+
+  display: inline-block;
+
+  padding: 6px 9px;
+
+  border-radius: 6px;
+
+  font-weight: 750;
+
+}
+
+.fine-print {
+
+  margin: 21px 0;
+
+  color: #8b9c9a;
+
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+
+  font-size: 11px;
+
+}
+
+.fine-print .icon {
+
+  width: 16px;
+
+  height: 16px;
+
+  flex: none;
+
+}
+
+.indoor-feature {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 23px;
+
+  background: linear-gradient(110deg,#e4f5ea,#f3fbf6);
+
+  padding: 27px 29px;
+
+  border-radius: 18px;
+
+  margin-bottom: 23px;
+
+}
+
+.indoor-feature-icon {
+
+  background: #d2eedd;
+
+  color: #288161;
+
+  width: 70px;
+
+  height: 70px;
+
+  border-radius: 18px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+}
+
+.indoor-feature-icon .icon {
+
+  width: 34px;
+
+  height: 34px;
+
+}
+
+.indoor-feature h2 {
+
+  font-size: 22px;
+
+  margin: 6px 0;
+
+}
+
+.indoor-feature p {
+
+  max-width: 670px;
+
+  color: #698b7e;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+
+}
+
+.indoor-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2,minmax(0,1fr));
+
+  gap: 18px;
+
+  margin-bottom: 18px;
+
+}
+
+.indoor-guide-card {
+
+  padding: 27px;
+
+  display: flex;
+
+  gap: 17px;
+
+  min-height: 190px;
+
+}
+
+.guide-icon {
+
+  width: 45px;
+
+  height: 45px;
+
+  background: #e6f5ee;
+
+  color: #34866b;
+
+  border-radius: 13px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+}
+
+.guide-icon .icon {
+
+  width: 22px;
+
+  height: 22px;
+
+}
+
+.indoor-guide-card h3 {
+
+  margin: 8px 0 8px;
+
+  font-size: 17px;
+
+}
+
+.indoor-guide-card p {
+
+  color: #849694;
+
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.75;
+
+}
+
+.indoor-category {
+
+  font-size: 10px;
+
+  color: #57977c;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+}
+
+.two-note-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+
+}
+
+.caution-card {
+
+  padding: 24px;
+
+  background: #fafcfb;
+
+}
+
+.caution-card h3 {
+
+  font-size: 16px;
+
+  margin: 10px 0;
+
+}
+
+.caution-card p {
+
+  color: #849895;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+
+  margin: 0;
+
+}
+
+.impact-layout {
+
+  display: grid;
+
+  grid-template-columns: 350px 1fr;
+
+  gap: 20px;
+
+}
+
+.impact-input {
+
+  padding: 30px;
+
+}
+
+.impact-input h2 {
+
+  font-size: 20px;
+
+  letter-spacing: -.6px;
+
+  margin: 6px 0 23px;
+
+}
+
+.impact-input form {
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+.impact-input input[type=range] {
+
+  accent-color: #378b6c;
+
+  margin: 7px 0;
+
+  width: 100%;
+
+}
+
+.impact-input output {
+
+  text-align: right;
+
+  font-size: 11px;
+
+  color: #80a18b;
+
+  margin: 4px 0 18px;
+
+}
+
+.impact-results {
+
+  display: grid;
+
+  gap: 18px;
+
+}
+
+.impact-result-hero {
+
+  padding: 28px 33px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(120deg,#0c524c,#24745e);
+
+  color: #fff;
+
+  min-height: 221px;
+
+}
+
+.impact-result-hero .eyebrow-mini {
+
+  color: #b5edcf;
+
+}
+
+.impact-number {
+
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 12px;
+
+  margin: 15px 0 3px;
+
+}
+
+.impact-number strong {
+
+  font-size: 64px;
+
+  letter-spacing: -3px;
+
+  line-height: 1;
+
+}
+
+.impact-number span {
+
+  font-size: 15px;
+
+  color: #d4efe3;
+
+  font-weight: 650;
+
+}
+
+.impact-result-hero p {
+
+  font-size: 12px;
+
+  color: #d2ede0;
+
+}
+
+.impact-badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 10px;
+
+  color: #c2eed6;
+
+  background: #ffffff15;
+
+  border: 1px solid #ffffff1b;
+
+  padding: 6px 9px;
+
+  border-radius: 7px;
+
+}
+
+.impact-badge .icon {
+
+  width: 14px;
+
+  height: 14px;
+
+}
+
+.compare-card {
+
+  padding: 25px;
+
+}
+
+.compare-card h3 {
+
+  margin: 0 0 19px;
+
+}
+
+.compare-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #738a86;
+
+  font-size: 12px;
+
+}
+
+.compare-row strong {
+
+  color: #284b4e;
+
+}
+
+.compare-track {
+
+  height: 10px;
+
+  background: #eef3f0;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  margin: 8px 0 18px;
+
+}
+
+.compare-track span {
+
+  display: block;
+
+  height: 100%;
+
+  transition: width .25s;
+
+}
+
+.baseline-bar {
+
+  width: 100%;
+
+  background: #efb576;
+
+  border-radius: 8px;
+
+}
+
+.option-bar {
+
+  width: 25%;
+
+  background: #63b591;
+
+  border-radius: 8px;
+
+}
+
+.compare-foot {
+
+  display: flex;
+
+  gap: 8px;
+
+  color: #91a3a0;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+
+}
+
+.compare-foot .icon {
+
+  width: 15px;
+
+  height: 15px;
+
+  flex: none;
+
+}
+
+.impact-method {
+
+  padding: 22px 27px;
+
+  margin-top: 19px;
+
+  background: #fefefd;
+
+}
+
+.impact-method h3 {
+
+  margin: 0 0 10px;
+
+  font-size: 14px;
+
+}
+
+.impact-method p {
+
+  color: #839692;
+
+  font-size: 12px;
+
+  line-height: 1.75;
+
+  margin: 0;
+
+}
+
+.chat-shell {
+
+  overflow: hidden;
+
+  max-width: 880px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 600px;
+
+}
+
+.chat-head {
+
+  border-bottom: 1px solid var(--border);
+
+  padding: 19px 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+}
+
+.chat-avatar {
+
+  width: 42px;
+
+  height: 42px;
+
+  background: #dff4e7;
+
+  color: #2c8f6d;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+}
+
+.chat-head strong {
+
+  font-size: 13px;
+
+}
+
+.chat-mode {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  color: #819993;
+
+  font-size: 10px;
+
+  margin-top: 5px;
+
+}
+
+.chat-mode-dot {
+
+  height: 6px;
+
+  width: 6px;
+
+}
+
+.chat-head .source-pill {
+
+  margin-left: auto;
+
+  font-size: 9px;
+
+  background: #eff8f2;
+
+  color: #3e9671;
+
+}
+
+.chat-messages {
+
+  padding: 25px;
+
+  min-height: 352px;
+
+  max-height: 480px;
+
+  overflow-y: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+
+  flex: 1;
+
+}
+
+.message {
+
+  max-width: 78%;
+
+  padding: 17px 18px;
+
+  border-radius: 16px;
+
+  background: #f0f7f3;
+
+  color: #345b55;
+
+  align-self: flex-start;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+
+}
+
+.message.user {
+
+  align-self: flex-end;
+
+  background: #155b50;
+
+  color: #fff;
+
+}
+
+.message-identity {
+
+  font-size: 10px;
+
+  font-weight: 840;
+
+  letter-spacing: .5px;
+
+  color: #419879;
+
+  margin-bottom: 5px;
+
+}
+
+.message.user .message-identity {
+
+  color: #b2eacb;
+
+}
+
+.message p {
+
+  margin: 0;
+
+}
+
+.suggestion-chips {
+
+  display: flex;
+
+  gap: 9px;
+
+  flex-wrap: wrap;
+
+  padding: 0 22px 13px;
+
+}
+
+.suggestion-chips button {
+
+  border: 1px solid #dcece3;
+
+  color: #3a8367;
+
+  background: #f7fcf8;
+
+  padding: 9px 11px;
+
+  border-radius: 18px;
+
+  font-size: 10px;
+
+  font-weight: 660;
+
+}
+
+.suggestion-chips button:hover {
+
+  background: #e1f5e9;
+
+}
+
+.chat-form {
+
+  padding: 0 22px;
+
+  position: relative;
+
+  display: flex;
+
+  gap: 10px;
+
+}
+
+.chat-form input {
+
+  height: 50px;
+
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 0 59px 0 17px;
+
+  border: 1px solid #e0eae6;
+
+  border-radius: 12px;
+
+  color: #345b56;
+
+  outline-color: #368e75;
+
+  font-size: 12px;
+
+}
+
+.chat-form button {
+
+  height: 37px;
+
+  width: 37px;
+
+  border-radius: 10px;
+
+  border: 0;
+
+  background: #155e52;
+
+  color: white;
+
+  display: grid;
+
+  place-items: center;
+
+  position: absolute;
+
+  right: 29px;
+
+  top: 6px;
+
+}
+
+.chat-form button .icon {
+
+  height: 17px;
+
+  width: 17px;
+
+}
+
+.chat-disclaimer {
+
+  font-size: 10px;
+
+  color: #9cafab;
+
+  text-align: center;
+
+  margin: 12px 16px 19px;
+
+}
+
+.icon-button {
+
+  border: 1px solid var(--border);
+
+  background: #fff;
+
+  border-radius: 9px;
+
+  height: 36px;
+
+  width: 36px;
+
+  display: grid;
+
+  place-items: center;
+
+}
+
+@media (max-width:1340px) {
+
+  .sidebar {
+
+    flex-basis: 224px;
+
+  }
+
+  .topbar {
+
+    padding: 0 30px;
+
+  }
+
+  main {
+
+    padding: 30px 28px 45px;
+
+  }
+
+  .dashboard-grid {
+
+    grid-template-columns: minmax(0,1fr) 290px;
+
+  }
+
+  .metrics-grid {
+
+    gap: 10px;
+
+  }
+
+  .metrics-grid .card {
+
+    padding: 16px 13px;
+
+    min-height: 180px;
+
+  }
+
+  .pollutant-value strong {
+
+    font-size: 37px;
+
+  }
+
+  .aqi-number {
+
+    font-size: 55px;
+
+  }
+
+  .aqi-meter {
+
+    width: 75px;
+
+    height: 75px;
+
+  }
+
+  .aqi-meter-inner {
+
+    width: 55px;
+
+    height: 55px;
+
+  }
+
+  .footer {
+
+    padding-left: 28px;
+
+    padding-right: 28px;
+
+  }
+
+}
+
+@media (max-width:1110px) {
+
+  .dashboard-grid {
+
+    grid-template-columns: minmax(0,1fr);
+
+  }
+
+  .dashboard-side {
+
+    grid-template-columns: 1.5fr 1fr;
+
+    align-items: start;
+
+  }
+
+  .profile-form {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 12px;
+
+  }
+
+  .profile-form>label {
+
+    grid-column: auto;
+
+  }
+
+  .profile-form>label:nth-of-type(2) {
+
+    grid-column: 2;
+
+    grid-row: 1;
+
+  }
+
+  .profile-form #schedule {
+
+    grid-column: 1;
+
+    grid-row: 2;
+
+  }
+
+  .profile-form #commute {
+
+    grid-column: 2;
+
+    grid-row: 2;
+
+  }
+
+  .profile-form>label:nth-of-type(3) {
+
+    grid-column: 1;
+
+    grid-row: 3;
+
+  }
+
+  .profile-form #budget {
+
+    grid-column: 1;
+
+    grid-row: 4;
+
+  }
+
+  .profile-form fieldset {
+
+    grid-column: 2;
+
+    grid-row: 3/span 2;
+
+    padding: 9px 0;
+
+  }
+
+  .profile-form .btn {
+
+    grid-column: span 2;
+
+  }
+
+  .location-bar {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+  }
+
+  .location-controls {
+
+    width: 100%;
+
+  }
+
+  .city-search {
+
+    flex: 1;
+
+  }
+
+  .city-search input {
+
+    width: 100%;
+
+  }
+
+  .quick-tip {
+
+    min-height: 155px;
+
+  }
+
+  .impact-layout {
+
+    grid-template-columns: 300px 1fr;
+
+  }
+
+}
+
+@media (max-width:800px) {
+
+  .sidebar {
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    transform: translateX(-100%);
+
+    transition: transform .2s;
+
+    box-shadow: 0 0 0 100vmax rgba(8,35,36,0);
+
+    width: 260px;
+
+  }
+
+  .sidebar.open {
+
+    transform: translateX(0);
+
+    box-shadow: 0 0 0 100vmax rgba(8,35,36,.4);
+
+  }
+
+  .mobile-menu {
+
+    display: grid;
+
+  }
+
+  .topbar {
+
+    height: 65px;
+
+    padding: 0 20px;
+
+  }
+
+  main {
+
+    padding: 26px 19px 36px;
+
+  }
+
+  .topbar-right .current-date {
+
+    display: none;
+
+  }
+
+  .topbar-divider {
+
+    display: none;
+
+  }
+
+  .location-bar {
+
+    padding: 17px;
+
+  }
+
+  .metrics-grid {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .aqi-tile {
+
+    grid-column: span 2;
+
+  }
+
+  .aqi-contents {
+
+    justify-content: flex-start;
+
+    gap: 32px;
+
+  }
+
+  .aqi-tile .metric-foot {
+
+    margin-top: 13px;
+
+  }
+
+  .dashboard-side {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .overview-actions,.plan-action-list {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .indoor-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .two-note-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .impact-layout {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .footer {
+
+    padding: 18px 20px;
+
+    flex-direction: column;
+
+  }
+
+  .page-actions {
+
+    display: none;
+
+  }
+
+  .plan-hero-art {
+
+    display: none;
+
+  }
+
+  .page-head h1 {
+
+    letter-spacing: -1.4px;
+
+  }
+
+  .lower-head {
+
+    align-items: start;
+
+    flex-direction: column;
+
+  }
+
+}
+
+@media (max-width:520px) {
+
+  .location-controls {
+
+    flex-wrap: wrap;
+
+  }
+
+  .location-controls .city-search {
+
+    width: 100%;
+
+    flex: auto;
+
+  }
+
+  .location-controls .btn {
+
+    flex: 1;
+
+  }
+
+  .metrics-grid {
+
+    gap: 10px;
+
+  }
+
+  .metrics-grid .card {
+
+    min-height: 165px;
+
+  }
+
+  .pollutant-value strong {
+
+    font-size: 34px;
+
+  }
+
+  .chart-card {
+
+    padding: 17px;
+
+  }
+
+  .chart-key {
+
+    font-size: 9px;
+
+  }
+
+  .chart-footer {
+
+    flex-direction: column;
+
+  }
+
+  .profile-form {
+
+    display: flex;
+
+  }
+
+  .overview-actions {
+
+    gap: 12px;
+
+  }
+
+  .insight-banner {
+
+    padding: 17px;
+
+    gap: 10px;
+
+  }
+
+  .insight-icon {
+
+    width: 38px;
+
+    min-width: 38px;
+
+    min-height: 38px;
+
+  }
+
+  .insight-action {
+
+    display: none;
+
+  }
+
+  .page-head h1 {
+
+    font-size: 34px;
+
+  }
+
+  .lead {
+
+    font-size: 12px;
+
+  }
+
+  .chat-head .source-pill {
+
+    display: none;
+
+  }
+
+  .chat-messages {
+
+    padding: 17px;
+
+  }
+
+  .message {
+
+    max-width: 90%;
+
+  }
+
+  .suggestion-chips {
+
+    padding-left: 17px;
+
+    padding-right: 17px;
+
+  }
+
+  .chat-form {
+
+    padding: 0 16px;
+
+  }
+
+  .chat-form button {
+
+    right: 23px;
+
+  }
+
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+  *,*:before,*:after {
+
+    scroll-behavior: auto !important;
+
+    animation: none !important;
+
+    transition: none !important;
+
+  }
+
+}
+
+@media (min-width:801px) {
+
+  .mobile-menu {
+
+    display: none !important;
+
+  }
+
+}
+
+@media (max-width:800px) {
+
+  .mobile-menu {
+
+    display: grid !important;
+
+  }
+
+}
+
+/*Pro v2: contrast, readability, accessible hourly table and transparent impact assumptions.*/
+
+:root {
+
+  --muted: #3e5960;
+
+  --mint-ink: #155c46;
+
+  --focus: #005c48;
+
+}
+
+.lead,.tiny-label,.eyebrow-mini,.tile-label,.action-time,.breadcrumb,.current-date,.chart-key,.chart-footer,.profile-card p,.profile-description,.indoor-category,.impact-method p,.compare-foot,.chat-disclaimer,.footer,.fine-print,.soft-badge,.pollutant-tile .mini-description,.section-card-head p,.action-time,.plan-period,.why-box strong,.insight-kicker {
+
+  color: #3b555c;
+
+}
+
+.page-head .eyebrow,.lower-head .eyebrow-mini {
+
+  color: #246d50;
+
+}
+
+.city-search input::placeholder,.chat-form input::placeholder {
+
+  color: #50676c;
+
+  opacity: 1;
+
+}
+
+.aqi-tile .tile-label,.aqi-tile .tile-symbol {
+
+  color: #e2fff3;
+
+}
+
+.sidebar .sidebar-caption,.sidebar .brand small,.sidebar .sidebar-bottom,.sidebar .nav-item {
+
+  color: #d0e2dd;
+
+}
+
+.sidebar .nav-item.active,.sidebar .side-guide p {
+
+  color: #f0fff8;
+
+}
+
+.notice {
+
+  color: #634a17;
+
+}
+
+.notice.live-notice {
+
+  color: #165338;
+
+}
+
+.source-pill {
+
+  color: #694c18;
+
+}
+
+.notice.live-notice .source-pill {
+
+  color: #155139;
+
+}
+
+.eyebrow-mini {
+
+  letter-spacing: 1.2px;
+
+}
+
+.hourly-details {
+
+  margin: 6px 20px 18px;
+
+  border: 1px solid #d5e1dc;
+
+  border-radius: 12px;
+
+  padding: 11px 14px;
+
+  background: #fafdfb;
+
+  color: #28474c;
+
+}
+
+.hourly-details summary {
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+}
+
+.hourly-details summary:focus-visible {
+
+  outline: 3px solid #006549;
+
+  outline-offset: 4px;
+
+}
+
+.table-scroll {
+
+  overflow-x: auto;
+
+  padding-top: 10px;
+
+}
+
+.hourly-details table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 12px;
+
+  text-align: left;
+
+}
+
+.hourly-details caption {
+
+  text-align: left;
+
+  color: #42605b;
+
+  padding: 3px 0 10px;
+
+}
+
+.hourly-details th,.hourly-details td {
+
+  padding: 9px 12px;
+
+  border-bottom: 1px solid #d9e5df;
+
+}
+
+.hourly-details thead {
+
+  background: #edf6f1;
+
+}
+
+.hourly-details tbody tr:last-child th,.hourly-details tbody tr:last-child td {
+
+  border: 0;
+
+}
+
+.factor-input-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2,minmax(0,1fr));
+
+  gap: 12px;
+
+  margin-top: 15px;
+
+}
+
+.factor-input-grid label {
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  display: block;
+
+  margin: 0 0 7px;
+
+  color: #28484d;
+
+  font-weight: 700;
+
+}
+
+.factor-input-grid input {
+
+  width: 100%;
+
+  border: 1px solid #b9cfc5;
+
+  border-radius: 10px;
+
+  padding: 10px;
+
+  background: white;
+
+  color: #18333a;
+
+}
+
+.factor-note {
+
+  font-size: 11px;
+
+  color: #38515a;
+
+  line-height: 1.55;
+
+  margin: 12px 0;
+
+}
+
+.impact-method a {
+
+  text-decoration: underline;
+
+  color: #155b45;
+
+}
+
+#main {
+
+  scroll-margin-top: 20px;
+
+}
+
+@media (max-width:560px) {
+
+  .factor-input-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .hourly-details {
+
+    margin: 8px 12px 16px;
+
+    padding: 10px;
+
+  }
+
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+  *,*::before,*::after {
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+
+    animation-duration: 0.01ms !important;
+
+  }
+
+}
+
+.ai-brief {
+
+  margin: 0 0 22px;
+
+  padding: 22px 24px;
+
+  border: 1px solid #b9d8cb;
+
+  background: #f5fbf7;
+
+}
+
+.ai-brief-top {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  flex-wrap: wrap;
+
+}
+
+.ai-brief-top h2 {
+
+  font-size: 18px;
+
+  margin: 4px 0;
+
+}
+
+.ai-brief p {
+
+  color: #28474c;
+
+  line-height: 1.7;
+
+  margin: 14px 0 12px;
+
+  max-width: 900px;
+
+}
+
+.ai-brief .soft-badge {
+
+  display: inline-flex;
+
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  background: #e3f2e9;
+
+  color: #155338;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: .5px;
+
+}
+
+@media (max-width:580px) {
+
+  .ai-brief {
+
+    padding: 18px;
+
+  }
+
+  .ai-brief-top .btn {
+
+    width: 100%;
+
+    white-space: normal;
+
+    min-height: 42px;
+
+    height: auto;
+
+    padding: 10px;
+
+  }
+
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M2 12h18a3 3 0 1 1-3 3M4 16h7a3 3 0 1 1-3 3"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h4M7 17h4"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM9 21v-8h6v8"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4c-11 0-16 4-16 11a5 5 0 0 0 5 5c7 0 11-5 11-16ZM4 20c4-5 8-8 13-11"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10ZM9 12l2 2 4-4"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M9 3v6M15 9v6M9 15v6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6 9a7 7 0 0 1 12-2l2 2M4 15l2 2a7 7 0 0 0 12-2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M22 12h-2M4 12H2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M20 17a4 4 0 0 0-1-8 7 7 0 0 0-13 2 3 3 0 0 0 0 6h14Z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 16A9 9 0 0 1 8 4a9 9 0 1 0 12 12Z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M10 14 20 4M19 14v6H4V5h6"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM11 13 22 2"/></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M18 15a5 5 0 0 1 3 5v1"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-9M15 6h6v6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand"><span class="brand-symbol"><svg class="icon"><use href="#i-wind"/></svg></span><span><strong>smogsafe<span class="brand-dot">.</span></strong><small>Family air intelligence</small></span></div>
+      <div class="sidebar-caption">YOUR WORKSPACE</div>
+      <nav class="side-nav" aria-label="Sections">
+        <button type="button" class="nav-item active" data-view="overview" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></button>
+        <button type="button" class="nav-item" data-view="plan"><svg class="icon"><use href="#i-calendar"/></svg><span>My daily plan</span></button>
+        <button type="button" class="nav-item" data-view="indoor"><svg class="icon"><use href="#i-home"/></svg><span>Indoor air guide</span></button>
+        <button type="button" class="nav-item" data-view="impact"><svg class="icon"><use href="#i-leaf"/></svg><span>Impact lab</span></button>
+        <button type="button" class="nav-item" data-view="copilot"><svg class="icon"><use href="#i-message"/></svg><span>Ask SmogSafe AI</span><span class="nav-indicator"></span></button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="side-guide"><div class="side-guide-icon"><svg class="icon"><use href="#i-shield"/></svg></div><strong>Small changes, cleaner choices.</strong><p>Personalized advice for the people and places that matter most.</p><button type="button" class="guide-link" id="nav-to-plan">Create your plan <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+      <div class="sidebar-bottom"><span class="status-pulse"></span> SmogSafe AI Executive v4.0 <span class="side-bottom-right">Built with care</span></div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left"><button class="mobile-menu icon-button" type="button" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><svg class="icon"><use href="#i-menu"/></svg></button><div class="breadcrumb">SMOGSAFE <span>/</span> <strong id="crumb">Overview</strong></div></div>
+        <div class="topbar-right"><span id="clock-date" class="current-date"></span><span class="topbar-divider"></span><span class="user-avatar">S</span></div>
+      </header>
+      <main id="main" tabindex="-1">
+        <section id="view-overview" class="view" aria-labelledby="overview-title">
+          <div class="page-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR AIR, MADE UNDERSTANDABLE</div><h1 id="overview-title">Breathe better, <em>together.</em></h1><p class="lead">A little clarity goes a long way. Make confident, cleaner choices for your family every day.</p></div><div class="page-actions"><button type="button" class="btn btn-quiet" id="overview-share"><svg class="icon"><use href="#i-download"/></svg> Download plan</button></div></div>
+          <div class="location-bar"><div class="location-main"><div class="location-icon"><svg class="icon"><use href="#i-pin"/></svg></div><div><span class="tiny-label">YOUR LOCATION</span><div class="location-name" id="selected-location">New Delhi, Delhi, India</div></div></div><div class="location-controls"><form id="city-form" class="city-search"><label for="city-input" class="sr-only">Search a city</label><input id="city-input" name="city" placeholder="Search another city" autocomplete="off" minlength="2" maxlength="80"/><button aria-label="Search city" class="city-submit" type="submit"><svg class="icon"><use href="#i-arrow"/></svg></button></form><button type="button" id="use-location" class="btn btn-line" title="Only used when you give permission"><svg class="icon"><use href="#i-pin"/></svg> My location</button><button type="button" id="try-live" class="btn btn-primary"><svg class="icon"><use href="#i-refresh"/></svg> Load live forecast</button></div></div>
+          <div id="search-results" class="search-results" hidden role="region" aria-label="City search results"></div>
+          <div class="notice demo-notice" id="source-notice" role="status"><div class="notice-left"><span class="demo-dot"></span><strong id="source-title">ILLUSTRATIVE DEMO</strong><span id="source-subtitle">Values are made-up examples, not live measurements.</span></div><span class="source-pill" id="source-pill">DEMO DATA</span></div>
+          <div class="dashboard-grid">
+            <div class="dashboard-main">
+              <div class="metrics-grid">
+                <article class="aqi-tile card"><div class="tile-top"><span class="tile-label">US AIR QUALITY INDEX</span><svg class="icon"><use href="#i-wind"/></svg></div><div class="aqi-contents"><div><div class="aqi-number" id="current-aqi">184</div><div class="aqi-status"><span class="aqi-status-dot"></span><span id="current-band">Unhealthy</span></div></div><div class="aqi-meter" id="aqi-meter" aria-hidden="true"><div class="aqi-meter-inner"><svg class="icon"><use href="#i-wind"/></svg></div></div></div><p id="aqi-description" class="metric-foot">Consider reducing prolonged outdoor activities.</p></article>
+                <article class="pollutant-tile card"><div class="tile-top"><span class="tile-label">FINE PARTICLES</span><span class="tile-symbol">PM₂.₅</span></div><div class="pollutant-value"><strong id="current-pm25">82.6</strong><span>µg/m³</span></div><div class="mini-line" aria-hidden="true"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><path d="M0 24 Q20 8 38 18 T75 12 T112 21 T154 8 T200 14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><p class="metric-foot">Small particles that can enter deep into the lungs.</p></article>
+                <article class="pollutant-tile card"><div class="tile-top"><span class="tile-label">COARSE PARTICLES</span><span class="tile-symbol">PM₁₀</span></div><div class="pollutant-value"><strong id="current-pm10">140.4</strong><span>µg/m³</span></div><div class="mini-line mini-line-amber" aria-hidden="true"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><path d="M0 25 Q18 25 35 12 T80 16 T110 8 T150 23 T200 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div><p class="metric-foot">Larger particles from dust and other sources.</p></article>
+              </div>
+              <article class="card chart-card"><div class="section-card-head"><div><div class="eyebrow-mini">WHAT'S NEXT</div><h2>Hourly air outlook</h2></div><div class="chart-key"><span class="chart-key-dot"></span> US AQI · next 12 hours</div></div><div class="chart-frame"><svg id="forecast-chart" class="forecast-chart" role="img" aria-label="Illustrative US AQI values over the next twelve hours" viewBox="0 0 720 190" preserveAspectRatio="none"></svg></div>
+                <details class="hourly-details"><summary>Accessible hour-by-hour data table</summary>
+                <div class="table-scroll"><table><caption>Modeled or demo US AQI and PM2.5 by forecast hour</caption>
+                <thead><tr><th scope="col">Time (UTC for forecasts)</th><th scope="col">US AQI</th><th scope="col">PM2.5 (µg/m³)</th></tr></thead><tbody id="forecast-rows"></tbody></table></div></details>
+                <div class="chart-footer"><span><svg class="icon"><use href="#i-info"/></svg> <span id="forecast-detail">Illustrative outlook, not an observed trend.</span></span><span>Lower is generally better</span></div></article>
+              <div class="insight-banner"><div class="insight-icon"><svg class="icon"><use href="#i-spark"/></svg></div><div><span class="insight-kicker">TODAY'S INSIGHT</span><h2 id="insight-title">A little less outside time can go a long way.</h2><p id="insight-text">Adjust intense outdoor exercise during high-pollution periods.</p></div><button type="button" class="insight-action" data-view="plan" aria-label="View your daily plan"><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+            </div>
+            <aside class="dashboard-side" aria-label="Your home profile and highlights"><article class="card profile-card"><div class="section-card-head"><div><div class="eyebrow-mini">MADE FOR YOUR PEOPLE</div><h2>Your household</h2></div><div class="card-corner-icon"><svg class="icon"><use href="#i-people"/></svg></div></div><p class="profile-lead">Tell us a little about your day to get useful, realistic advice.</p><form id="profile-form" class="profile-form"><label for="schedule">Daily routine</label><select id="schedule" name="schedule"><option value="school">School + family</option><option value="office">Office commute</option><option value="home">Mostly at home</option><option value="mixed" selected>Mixed routine</option></select><label for="commute">Primary transport</label><select id="commute" name="commute"><option value="car" selected>Private car</option><option value="bus">Bus</option><option value="metro">Metro / rail</option><option value="walk">Walking</option><option value="cycle">Cycling</option><option value="remote">Remote / no commute</option></select><label for="budget">Household budget</label><select id="budget" name="budget"><option value="low" selected>Keep it affordable</option><option value="medium">Some flexibility</option><option value="flexible">Flexible budget</option></select><fieldset><legend>In your household</legend><label class="checkrow"><input type="checkbox" name="children" id="children" checked/><span>Children</span></label><label class="checkrow"><input type="checkbox" name="seniors" id="seniors"/><span>Older adults</span></label><label class="checkrow"><input type="checkbox" name="sensitive" id="sensitive"/><span>Air-sensitive family member</span></label><label class="checkrow"><input type="checkbox" name="purifier" id="purifier"/><span>Have a HEPA purifier</span></label></fieldset><button type="submit" class="btn btn-primary btn-block">Update my plan <svg class="icon"><use href="#i-arrow"/></svg></button></form></article><article class="card quick-tip"><span class="quick-tip-icon"><svg class="icon"><use href="#i-leaf"/></svg></span><div><span class="tiny-label">A QUICK THOUGHT</span><h3>Better habits begin at home.</h3><p>Avoiding unnecessary indoor smoke can help without buying expensive equipment.</p></div></article></aside>
+          </div>
+          <div class="lower-head"><div><span class="eyebrow-mini">YOUR NEXT STEPS</span><h2>Small actions. <em>Real intention.</em></h2></div><button class="text-link" type="button" data-view="plan">Explore your full daily plan <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+          <div id="overview-actions" class="overview-actions"></div>
+        </section>
+
+        <section id="view-plan" class="view" hidden aria-labelledby="plan-title"><div class="page-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> MADE FOR YOUR DAY</div><h1 id="plan-title">Your cleaner-air <em>routine.</em></h1><p class="lead">Practical decisions for morning, afternoon and evening, adapted to your household.</p></div><button type="button" class="btn btn-primary" id="download-plan"><svg class="icon"><use href="#i-download"/></svg> Export my plan</button></div><div class="plan-hero card"><div><span class="eyebrow-mini">YOUR CURRENT FOCUS</span><h2 id="plan-intensity">Take extra care today</h2><p id="plan-intro">Prioritize necessary journeys and lower-exposure activities.</p><span class="soft-badge" id="plan-source-badge">DEMO SCENARIO</span></div><div class="plan-hero-art" aria-hidden="true"><svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="72" fill="none" stroke="currentColor" opacity=".15" stroke-width="2"/><circle cx="90" cy="90" r="50" fill="none" stroke="currentColor" opacity=".2" stroke-width="2"/><path d="M42 96C65 57 105 138 141 79M45 114C74 93 98 134 135 102" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div></div><section class="ai-brief card" aria-labelledby="ai-brief-title"><div class="ai-brief-top"><div><span class="eyebrow-mini">OPTIONAL AI PERSONALIZATION</span><h2 id="ai-brief-title">Your day, explained simply.</h2></div><button id="generate-ai-brief" type="button" class="btn btn-primary">Generate my AI brief <svg class="icon"><use href="#i-spark"/></svg></button></div><p id="ai-brief-content" role="status" aria-live="polite">Generate a short, family-specific explanation of the plan. When Gemini is unavailable, transparent rule-based guidance is used instead.</p><span id="ai-brief-mode" class="soft-badge">READY · NO AI CALL YET</span></section>
+          <div id="plan-action-list" class="plan-action-list"></div><div class="fine-print"><svg class="icon"><use href="#i-shield"/></svg><span>These are general environmental suggestions, not medical advice. For health concerns follow official local advisories and medical professionals.</span></div></section>
+
+        <section id="view-indoor" class="view" hidden aria-labelledby="indoor-title"><div class="page-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> HEALTHIER HABITS AT HOME</div><h1 id="indoor-title">Make indoors <em>matter.</em></h1><p class="lead">Useful, evidence-aware ways to limit indoor particle sources and make your space more comfortable.</p></div></div><div class="indoor-feature"><div class="indoor-feature-icon"><svg class="icon"><use href="#i-home"/></svg></div><div><span class="eyebrow-mini">START WITH THE BASICS</span><h2>Cleaner air isn't always about buying more.</h2><p>Reducing smoke sources and controlling dust are often sensible first steps. Ventilation and filtration choices depend on your indoor and outdoor conditions.</p></div></div><div id="indoor-grid" class="indoor-grid"></div><div class="two-note-grid"><div class="card caution-card"><span class="eyebrow-mini">IMPORTANT LIMITATION</span><h3>Plants are lovely—not a HEPA substitute.</h3><p>Houseplants should not be presented as a proven way to clear dangerous levels of particulate pollution indoors. Choose effective source control and appropriate filtration when needed.</p></div><div class="card caution-card"><span class="eyebrow-mini">THE WINDOW QUESTION</span><h3>Opening windows is a trade-off.</h3><p>Outdoor smog can enter through open windows. But poorly ventilated rooms can also trap indoor-generated pollutants. Consider local conditions, cooking activities and official guidance.</p></div></div></section>
+
+        <section id="view-impact" class="view" hidden aria-labelledby="impact-title"><div class="page-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> SUSTAINABLE CHOICES, EXPLAINED</div><h1 id="impact-title">See the <em>difference.</em></h1><p class="lead">Compare transparent historical commuting emissions estimates for everyday journeys—without confusing emissions with personal pollution exposure.</p></div></div><div class="impact-layout"><div class="card impact-input"><span class="eyebrow-mini">YOUR COMMUTE</span><h2>Compare your travel choice</h2><form id="impact-form"><label for="distance">One-way distance (km)</label><input type="number" id="distance" name="distance" value="12" min="0" max="300" step="0.5" required/><label for="days">Travel days per week</label><input type="range" id="days" name="days" min="0" max="7" value="5"/><output id="days-output" for="days">5 days / week</output><label for="impact-option">Alternative to solo car</label><select id="impact-option" name="impact-option"><option value="metro">Metro / electric rail</option><option value="bus">Bus</option><option value="cycle">Cycling</option><option value="walk">Walking</option><option value="remote">Remote / avoid trip</option><option value="car">Continue driving</option></select>
+                <div class="factor-input-grid"><div><label for="car-factor">Solo-car factor (kg CO₂e/km)</label><input id="car-factor" name="car-factor" type="number" min="0" max="2" step="0.00001" value="0.18368" required></div>
+                <div><label for="alternative-factor">Alternative factor (kg CO₂e/km)</label><input id="alternative-factor" name="alternative-factor" type="number" min="0" max="2" step="0.00001" value="0.0376" required></div></div>
+                <p class="factor-note" id="factor-assumptions">Historical WRI 2018–2021 reference factors, editable; not verified current local emissions.</p>
+                <button class="btn btn-primary btn-block" type="submit">Calculate impact <svg class="icon"><use href="#i-arrow"/></svg></button></form></div><div class="impact-results"><div class="impact-result-hero"><span class="eyebrow-mini">ESTIMATED WEEKLY CO₂e DIFFERENCE</span><div class="impact-number"><strong id="saved-emissions">17.5</strong><span>kg CO₂e</span></div><p id="impact-explain">Illustrative difference compared with a solo car commute.</p><div class="impact-badge"><svg class="icon"><use href="#i-leaf"/></svg> Historical reference · not measured impact</div></div><div class="card compare-card"><h3>Side-by-side comparison</h3><div class="compare-row"><span>Solo car baseline</span><strong id="baseline-value">22.0 kg</strong></div><div class="compare-track"><span id="baseline-bar" class="baseline-bar"></span></div><div class="compare-row"><span id="option-label">Metro / electric rail</span><strong id="option-value">4.5 kg</strong></div><div class="compare-track"><span id="option-bar" class="option-bar"></span></div><div class="compare-foot"><svg class="icon"><use href="#i-info"/></svg> Emissions savings are not the same as changes in personal exposure or health risk.</div></div></div></div><div class="impact-method card"><h3>How the estimate works</h3><p>Round-trip kilometres × travel days × kilograms of CO₂e per kilometre. Initial factors are from the <a href="https://www.wri.org/sustainability-wri/dashboard/methodology" target="_blank" rel="noopener noreferrer">World Resources Institute methodology, Table 27</a> for non-US employee commuting (2018–2021, including India). These are <strong>dated historical benchmarks</strong>, not verified present-day Indian-city factors. Actual results depend on fuel, load, occupancy and power generation. Edit both factors to explore alternative assumptions. Walking/cycling/remote zero means avoided travel-operation emissions, not a full life-cycle assessment. No claim is made about your personal exposure or health benefit.</p></div></section>
+
+        <section id="view-copilot" class="view" hidden aria-labelledby="copilot-title"><div class="page-head"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR FAMILY AIR COPILOT</div><h1 id="copilot-title">Ask away. <em>Breathe easier.</em></h1><p class="lead">Understand your options in plain language. When configured, responses come from Gemini; otherwise, a transparent rule-based assistant is available.</p></div></div><div class="chat-shell card"><div class="chat-head"><div class="chat-avatar"><svg class="icon"><use href="#i-spark"/></svg></div><div><strong>SmogSafe assistant</strong><div class="chat-mode" id="chat-mode"><span class="chat-mode-dot"></span> Rule-based guidance available</div></div><span class="source-pill">GUIDANCE, NOT DIAGNOSIS</span></div><div class="chat-messages" id="chat-messages" aria-live="polite" aria-relevant="additions" role="log"><div class="message assistant"><div class="message-identity">SmogSafe AI</div><p>Hi there! I'm here to help you make practical cleaner-air choices. Ask me about your commute, indoor air, family routines or what US AQI means.</p></div></div><div class="suggestion-chips" id="chat-suggestions"><button type="button" data-question="How can I improve indoor air without buying expensive equipment?">Low-cost indoor ideas</button><button type="button" data-question="How should I plan school travel on smoggy days?">Safer school routine</button><button type="button" data-question="How can I reduce commuting emissions?">Lower-emission commute</button></div><form id="chat-form" class="chat-form"><label for="chat-input" class="sr-only">Ask SmogSafe AI a question</label><input id="chat-input" type="text" placeholder="Ask about your air, routines or choices..." maxlength="800" required/><button type="submit" aria-label="Send your question" id="send-chat"><svg class="icon"><use href="#i-send"/></svg></button></form><p class="chat-disclaimer">Never share personal medical records. AI-generated responses can make mistakes; verify important information.</p></div></section>
+      </main>
+      <footer class="footer"><span>SmogSafe AI · Built for thoughtful everyday choices</span><div><span id="footer-data">Demo data</span><span>·</span><a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noreferrer noopener">Open-Meteo data source <svg class="icon"><use href="#i-external"/></svg></a><span>·</span><span>Not medical advice</span></div></footer>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+window.__SMOGSAFE_STANDALONE__=true;
+/** Pure, side-effect-free rules for SmogSafe AI. No health diagnosis or inferred exposure dose. */
+const DEMO_CITIES = [
+  { name: 'New Delhi', admin1: 'Delhi', country: 'India', latitude: 28.6139, longitude: 77.2090 },
+  { name: 'Pune', admin1: 'Maharashtra', country: 'India', latitude: 18.5204, longitude: 73.8567 },
+  { name: 'Mumbai', admin1: 'Maharashtra', country: 'India', latitude: 19.0760, longitude: 72.8777 },
+  { name: 'Bengaluru', admin1: 'Karnataka', country: 'India', latitude: 12.9716, longitude: 77.5946 },
+  { name: 'Lucknow', admin1: 'Uttar Pradesh', country: 'India', latitude: 26.8467, longitude: 80.9462 },
+];
+
+// Values are invented EXAMPLES, never measurements. Display an unmissable demo banner.
+const DEMO_AIR = Object.freeze({
+  'New Delhi': { usAqi: 184, pm25: 82.6, pm10: 140.4, no2: 33.1, ozone: 65, trend: [178,184,181,177,172,166,171,176,181,190,196,188] },
+  'Pune': { usAqi: 112, pm25: 37.4, pm10: 72.1, no2: 18.6, ozone: 42, trend: [105,109,112,114,108,101,95,92,98,105,111,106] },
+  'Mumbai': { usAqi: 98, pm25: 32.1, pm10: 60.8, no2: 21.2, ozone: 36, trend: [92,95,98,102,108,104,98,94,89,86,90,92] },
+  'Bengaluru': { usAqi: 76, pm25: 22.8, pm10: 41.6, no2: 19.0, ozone: 31, trend: [72,76,71,69,66,63,65,69,72,74,73,70] },
+  'Lucknow': { usAqi: 201, pm25: 98.3, pm10: 158.2, no2: 39.5, ozone: 57, trend: [192,201,206,198,195,189,185,182,194,208,215,205] },
+});
+
+function demoAir(city = 'New Delhi') {
+  const data = DEMO_AIR[city] || DEMO_AIR['New Delhi'];
+  const hours = data.trend.map((usAqi, i) => ({
+    time: `${String((8 + i) % 24).padStart(2,'0')}:00`,
+    usAqi,
+    pm25: Number((data.pm25 * usAqi / data.usAqi).toFixed(1)),
+  }));
+  return { source: 'DEMO ONLY — invented example, not a real reading', live: false,
+    timestamp: null, scale: 'US AQI', current: { usAqi: data.usAqi, pm25: data.pm25, pm10: data.pm10, no2: data.no2, ozone: data.ozone }, hours };
+}
+
+function aqiBand(aqi) {
+  if (!Number.isFinite(aqi) || aqi < 0) return { label:'Unavailable', level:'unknown', description:'Air-quality data unavailable', color:'#60737a' };
+  if (aqi <= 50) return {label:'Good', level:'good', description:'Air quality is generally satisfactory.', color:'#2a9476'};
+  if (aqi <= 100) return {label:'Moderate', level:'moderate', description:'Unusually sensitive people may need extra care.', color:'#bd8b23'};
+  if (aqi <= 150) return {label:'Unhealthy for sensitive groups', level:'sensitive', description:'Children, older adults and people with health conditions may be more affected.', color:'#cc7425'};
+  if (aqi <= 200) return {label:'Unhealthy', level:'unhealthy', description:'Consider reducing prolonged or strenuous outdoor activity.', color:'#cf5648'};
+  if (aqi <= 300) return {label:'Very unhealthy', level:'very-unhealthy', description:'Health alert: reduce outdoor exposure; sensitive people need extra care.', color:'#99498b'};
+  return {label:'Hazardous', level:'hazardous', description:'Health warning: avoid outdoor exertion when possible.', color:'#7c3448'};
+}
+
+function safeProfile(input={}) {
+  if(!input || typeof input!=='object' || Array.isArray(input)) input={};
+  const allowed={commute:['car','bus','metro','walk','cycle','remote'], budget:['low','medium','flexible'],
+    schedule:['school','office','home','mixed']};
+  const str=(val, fallback, n=80)=>{
+    if(typeof val!=='string')return fallback;
+    const clean=val.normalize('NFKC').replace(/[\x00-\x1f<>]/g,'').replace(/\s+/g,' ').trim().slice(0,n);
+    // Treat attempts to disguise imperative instructions as city names as invalid location input.
+    return clean&&!/\b(?:ignore (?:all )?(?:previous|system)|reveal (?:the )?(?:system prompt|api key))\b/i.test(clean)?clean:fallback;
+  };
+  return {
+    city: str(input.city,'New Delhi',80),
+    latitude:Number.isFinite(input.latitude)&&input.latitude>=-90&&input.latitude<=90?input.latitude:null,
+    longitude:Number.isFinite(input.longitude)&&input.longitude>=-180&&input.longitude<=180?input.longitude:null,
+    schedule:allowed.schedule.includes(input.schedule)?input.schedule:'mixed',
+    commute:allowed.commute.includes(input.commute)?input.commute:'car',
+    budget:allowed.budget.includes(input.budget)?input.budget:'low',
+    children:input.children===true, seniors:input.seniors===true,
+    sensitive:input.sensitive===true, purifier:input.purifier===true,
+  };
+}
+
+function action(period, title, detail, why, tag) { return {period,title,detail,why,tag}; }
+
+/** Deterministic recommendation engine; AI chat is supplementary and not authoritative. */
+function makePlan(inputProfile, inputAir) {
+  const p=safeProfile(inputProfile);
+  const current=inputAir?.current || {};
+  const aqi=Number.isFinite(current.usAqi) ? current.usAqi : null;
+  const band=aqiBand(aqi);
+  const poor=aqi!==null && aqi>100;
+  const severe=aqi!==null && aqi>150;
+  const sensitive=p.children||p.seniors||p.sensitive;
+  const vulnerable=sensitive?' especially for children, older adults and sensitive household members':'';
+  const action1 = severe
+    ? action('MORNING','Choose lower-exposure morning activities', 'Keep strenuous exercise indoors where practical. If school or work travel is essential, limit time near busy roads and monitor official local alerts.','Pollution can be higher during severe smog. Avoiding unnecessary exposure may reduce time spent in polluted outdoor air.','Exposure')
+    : poor ? action('MORNING','Make outdoor time more intentional','Consider quieter streets and shorter outdoor exertion for sensitive family members. Check the next hours before planning exercise.','Conditions may pose more risk to sensitive groups; there is no universally safe outdoor hour.','Exposure')
+    : action('MORNING','Plan outdoor time with the forecast','Normal activity may be reasonable; sensitive household members should still monitor conditions.','Current modeled US AQI is not in the high-risk bands.','Routine');
+  const scheduleAdvice={
+    school:'For school days, check school notices and choose a safe, shorter waiting spot instead of prolonged roadside queues.',
+    office:'For office days, consider staggered departure or remote meetings where feasible, without assuming this removes all exposure.',
+    home:'When mostly at home, prioritize avoiding smoke from indoor activities and check outdoor conditions before ventilation.',
+    mixed:'Coordinate school, work and errands to reduce unnecessary travel, while keeping essential trips practical.'
+  };
+  const morning={...action1,detail:`${action1.detail} ${scheduleAdvice[p.schedule]}`};
+  const commuteActions = {
+    car: ['Combine essential journeys','Group errands and avoid idling where safe. Consider shared trips or remote work when feasible.','Fewer vehicle kilometres can reduce direct transport emissions.'],
+    bus: ['Use public transit intentionally','Choose less busy stops away from traffic when practical; track route and time spent outdoors.','Shared transit generally spreads emissions across more passengers; personal exposure still depends on route and vehicle.'],
+    metro: ['Make the most of metro travel','Prefer metro for suitable routes and choose less congested walking connections where feasible.','Electric rail can reduce car kilometres; actual emissions depend on electricity supply and ridership.'],
+    walk: ['Choose a cleaner walking route','Use lower-traffic streets when safe, and reduce strenuous outdoor travel during poor-air episodes.','Walking avoids tailpipe emissions, but high outdoor pollution can change the exposure trade-off.'],
+    cycle: ['Balance low-emission cycling with exposure','Cycle on protected low-traffic routes when air conditions allow; avoid intense exertion in severe smog.','Cycling avoids tailpipe emissions but increases breathing rate during exercise.'],
+    remote: ['Keep your remote-work advantage','Use remote work to avoid unnecessary car journeys and make indoor air quality a priority.','Avoiding a commute can reduce the associated transport emissions.'],
+  };
+  const [ct,cd,cw]=commuteActions[p.commute];
+  const action2=action('AFTERNOON',ct,cd,cw,'Lower emissions');
+  const action3 = p.schedule==='school'||p.children
+    ? action('EVENING','Reset the home after the school day', 'Keep shoes and dusty outerwear near the entrance, damp-dust surfaces, and choose indoor play when outdoor air is poor.','Source control and surface cleaning help reduce resuspended dust; they are not substitutes for filtration.','Home care')
+    : action('EVENING','Create a cleaner home routine', 'Avoid burning incense or candles; use kitchen exhaust when appropriate and check outdoor conditions before opening windows.','Reducing indoor sources can lower indoor particle generation.','Home care');
+  const indoor=[
+    { title:'Stop pollution at the source', detail:'Skip incense, indoor smoking, unnecessary candles and smoky cooking. Prefer cleaner cooking methods.', icon:'source', category:'Free or low cost' },
+    { title:'Keep indoor dust controlled', detail:'Damp-dust rather than dry sweeping. Use a vacuum with appropriate particle filtration if available.', icon:'spark', category:'Low cost' },
+    { title:'Ventilate with context', detail:'Ventilation can help indoor-generated pollutants, but opening windows during severe outdoor smog can also bring pollution inside. Check conditions first.', icon:'wind', category:'Situation dependent' },
+    ...(p.purifier || p.budget!=='low' ? [{ title:'Use effective particle filtration', detail:p.purifier?'Run your appropriately sized HEPA purifier in the most-used room; follow filter instructions.':'If budget permits, compare appropriately sized HEPA purifiers with clear replacement-filter costs. Avoid ozone-generating devices.', icon:'filter', category:'Optional purchase' }] :
+      [{ title:'Start with free source controls', detail:'Focus on avoiding smoke sources and reducing dust before buying anything. Do not assume plants alone solve indoor particulate pollution.', icon:'leaf', category:'No equipment required' }]),
+  ];
+  const swaps=[
+    { title:'Combine errands', effect:'Fewer car kilometres', description:'Coordinate shopping and appointments into fewer vehicle trips.', icon:'car' },
+    { title:'Choose shared or electric transport', effect:'Potential transport emissions reduction', description:'Compare practical transit options for your route; personal exposure may differ.', icon:'train' },
+    { title:'Avoid smoke-producing activities', effect:'Less indoor particle generation', description:'Skip incense, burning waste and unnecessary open flames.', icon:'home' },
+  ];
+  const note=aqi===null?'No reliable AQI available: recommendations are general, not based on live air conditions.':
+    `Based on ${inputAir?.live?'modeled forecast data':'illustrative example data'}: US AQI ${Math.round(aqi)} (${band.label.toLowerCase()}).`;
+  return {
+    status:band, note, profile:p, intensity:severe?'Take extra care today':poor?'Plan thoughtfully today':'Make the most of your day',
+    intro:severe?`Pollution conditions suggest limiting unnecessary outdoor exertion${vulnerable}.`:
+      poor?`A more cautious routine can help${vulnerable}.`:'Build a practical, lower-emission routine around your family.',
+    actions:[morning,action2,action3],indoor,swaps,
+    disclaimer:'General environmental information, not medical advice. Official local alerts and a clinician’s advice take priority for health concerns.',
+  };
+}
+
+/**
+ * Historical benchmark used by WRI for non-US (including India) employee commuting,
+ * Table 27, 2018–2021. These are NOT certified current India emission factors.
+ * kg CO2e per distance km under the referenced commute assumptions. Electricity,
+ * occupancy and actual vehicle fleet can differ; zero for walking/remote denotes
+ * avoided *transport operating* emissions only, not all life-cycle impacts.
+ * Source: https://www.wri.org/sustainability-wri/dashboard/methodology
+ */
+const REFERENCE_KG_PER_KM=Object.freeze({car:0.18368,bus:0.10097,metro:0.0376,walk:0,cycle:0,remote:0});
+// Keep the public name stable for the existing frontend; these are now cited historical benchmarks.
+const ILLUSTRATIVE_KG_PER_KM=REFERENCE_KG_PER_KM;
+const TRANSPORT_SOURCE=Object.freeze({
+  name:'World Resources Institute, Sustainability Dashboard Methodology, Table 27',
+  years:'2018–2021',
+  url:'https://www.wri.org/sustainability-wri/dashboard/methodology',
+  scope:'Non-US commuting reference factors (includes India), not a verified 2026 city-specific inventory',
+});
+function travelImpact({distanceKm=12, daysPerWeek=5, option='metro', carFactor=REFERENCE_KG_PER_KM.car, optionFactor=null}={}) {
+  const km=Number(distanceKm),days=Number(daysPerWeek);
+  if(!Number.isFinite(km)||km<0||km>300||!Number.isInteger(days)||days<0||days>7) throw new RangeError('Distance must be 0–300 km and days 0–7');
+  if(!Object.hasOwn(REFERENCE_KG_PER_KM,option)) throw new RangeError('Unsupported transport mode');
+  const solo=Number(carFactor);
+  const alternative=optionFactor===null?REFERENCE_KG_PER_KM[option]:Number(optionFactor);
+  if(!Number.isFinite(solo)||solo<0||solo>2||!Number.isFinite(alternative)||alternative<0||alternative>2) throw new RangeError('Emission factors must be between 0 and 2 kg CO2e/km');
+  const weeklyKm=km*2*days;
+  const baseline=weeklyKm*solo;
+  const choice=weeklyKm*alternative;
+  const isReference=solo===REFERENCE_KG_PER_KM.car && alternative===REFERENCE_KG_PER_KM[option];
+  const basis=isReference?'historical-WRI-reference':'user-edited-scenario';
+  return {weeklyKm, baselineKg:round(baseline), optionKg:round(choice), savedKg:round(baseline-choice), option,
+    factors:{carKgPerKm:solo,optionKgPerKm:alternative},basis,
+    methodologyUrl:TRANSPORT_SOURCE.url,methodology:TRANSPORT_SOURCE.name,factorVintage:TRANSPORT_SOURCE.years,
+    factorStatus:isReference?'WRI published historical commuting factors (2018–2021); not verified Indian city-specific/current values':'User-edited scenario; not verified Indian city-specific/current values',
+    note:'Historical reference or editable scenario estimate only. One-way distance × 2 × travel days × kg CO2e/km. NOT a measurement, NOT personal inhaled-pollution exposure, total vehicle life cycle, or health benefit.'};
+}
+const round=n=>Math.round(n*10)/10;
+
+function fallbackAnswer(query, profile={}, air={}) {
+  const q=String(query||'').toLowerCase();
+  const band=aqiBand(air?.current?.usAqi);
+  if (/api key|secret|system prompt|developer message|ignore previous|password|token/i.test(q))
+    return 'I can help with cleaner-air choices, but I cannot disclose private settings or credentials. Ask me about commuting, indoor air or daily routines.';
+  if (/asthma|pregnan|baby|infant|chest pain|breath|medical|hospital|medicine|symptom|cough/i.test(q))
+    return 'Air pollution can affect sensitive people differently. Consider reducing outdoor exertion during high-pollution periods and follow official local alerts. I cannot diagnose symptoms or recommend treatment. For concerning or urgent symptoms, seek professional medical care.';
+  if (/indoor|room|home|window|purif|filter|plant|incense|ventilat/i.test(q))
+    return 'Begin with indoor source control: avoid smoke from incense, cigarettes and candles; damp-dust surfaces; use kitchen exhaust when appropriate. An appropriately sized HEPA purifier can reduce airborne particles when used correctly. Opening windows depends on outdoor conditions—during severe smog they can bring more pollution inside. Plants alone are not a reliable substitute for filtration.';
+  if (/commut|bus|metro|cycle|walk|travel|car|emission|carbon/i.test(q))
+    return 'First ask whether the trip is necessary. If it is, compare metro, shared transport and grouped errands with your current journey. The Impact Lab gives a historical-reference emissions comparison, not a guarantee of lower personal pollution exposure. For walking or cycling, choose safer, lower-traffic routes and reconsider strenuous activity when pollution is high.';
+  if (/school|child|parent|senior|elder|kid|outdoor|run|exercise/i.test(q))
+    return `For ${safeProfile(profile).city}, the current ${air?.live?'modeled forecast':'demo scenario'} is ${band.label.toLowerCase()}. Adjust prolonged outdoor exercise according to local official advisories, especially for children and older adults. Favor lower-traffic routes, shorter unavoidable outdoor stops and indoor activities when conditions are poor.`;
+  if (/what|aqi|pollut|smog|pm2/i.test(q))
+    return `US AQI expresses outdoor air-quality conditions on a health-related index. The currently selected ${air?.live?'modeled forecast':'illustrative scenario'} is ${air?.current?.usAqi??'unavailable'} (${band.label}). PM2.5 refers to fine particles measured in micrograms per cubic metre. See the hourly outlook and source label, and check official local air-quality warnings.`;
+  return `For your ${safeProfile(profile).city} household, start with three steps: (1) check the forecast and local alerts before outdoor exertion; (2) reduce indoor smoke and dust sources; (3) combine car journeys or use suitable shared transit when practical. This is general guidance${air?.live?' using modeled forecasts':' from a demo scenario'}; ask about commuting, indoor air or family routines for details.`;
+}
+
+const $ = id => document.getElementById(id);
+const navLabels={overview:'Overview',plan:'My daily plan',indoor:'Indoor air guide',impact:'Impact lab',copilot:'Ask SmogSafe AI'};
+const standalone=Boolean(window.__SMOGSAFE_STANDALONE__);
+let city={...DEMO_CITIES[0]};
+let air=demoAir(city.name);
+let profile=safeProfile({city:city.name,children:true,schedule:'mixed',commute:'car',budget:'low'});
+let plan=makePlan(profile,air);
+let chatBusy=false;
+let forecastWarning='';
+let forecastRequestVersion=0;
+let toastTimer;
+
+function icon(name){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','icon');svg.setAttribute('aria-hidden','true');const use=document.createElementNS('http://www.w3.org/2000/svg','use');use.setAttribute('href',`#i-${name}`);svg.append(use);return svg;}
+function clear(node){node.replaceChildren();}
+function el(tag, cls, text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=String(text);return n;}
+function niceNumber(v,digits=1){return Number.isFinite(v)?Number(v).toFixed(digits):'—';}
+function toast(message){const n=$('toast');n.textContent=message;n.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.classList.remove('show'),3700);}
+function api(path,options){if(standalone)throw new Error('Standalone demo: no connected server.');return fetch(path,{signal:AbortSignal.timeout(16000),...options}).then(async r=>{let body;try{body=await r.json()}catch{throw new Error('Service returned an invalid response.')}if(!r.ok){const error=new Error(body.error||'Service unavailable.');error.status=r.status;throw error;}return body;});}
+function show(view){
+  for(const [key,label] of Object.entries(navLabels)){
+    const section=$(`view-${key}`);section.hidden=key!==view;
+    for(const n of document.querySelectorAll(`.nav-item[data-view="${key}"]`)){
+      n.classList.toggle('active',key===view);
+      if(key===view)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');
+    }
+  }
+  $('crumb').textContent=navLabels[view]||'Overview';
+  $('sidebar').classList.remove('open');$('menu-toggle').setAttribute('aria-expanded','false');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function syncProfile(){const f=$('profile-form');profile=safeProfile({city:city.name,schedule:f.elements.schedule.value,commute:f.elements.commute.value,budget:f.elements.budget.value,
+  children:$('children').checked,seniors:$('seniors').checked,sensitive:$('sensitive').checked,purifier:$('purifier').checked,
+  latitude:city.latitude,longitude:city.longitude});}
+function renderSource(){
+  const live=air.live===true;
+  $('source-notice').classList.toggle('live-notice',live);
+  $('source-title').textContent=live?'MODELED FORECAST ACTIVE':(forecastWarning?'FORECAST UNAVAILABLE · DEMO':'ILLUSTRATIVE DEMO');
+  $('source-subtitle').textContent=live?`Open-Meteo/CAMS • ${air.timestamp||'time unavailable'} • expires ${new Date(air.snapshotExpiresAt).toLocaleTimeString()} • not a ground monitor`:(forecastWarning?`${forecastWarning} All displayed AQI values are invented examples, not current conditions.`:'Values are invented examples—not measured pollution or current conditions.');
+  $('source-pill').textContent=live?'US AQI · FORECAST':'DEMO DATA';
+  $('footer-data').textContent=live?'Open-Meteo forecast':(forecastWarning?'Forecast unavailable • invented example':'Invented demo data');
+  $('plan-source-badge').textContent=live?'MODELED OPEN-METEO FORECAST':'DEMO SCENARIO';
+  $('forecast-detail').textContent=live?'Hourly labels are UTC. Modeled forecast only; check official local alerts.':'Illustrative example, not a real observation or forecast.';
+}
+function renderMetrics(){
+  const c=air.current,band=aqiBand(c.usAqi);
+  $('selected-location').textContent=[city.name,city.admin1,city.country].filter(Boolean).join(', ');
+  $('current-aqi').textContent=Number.isFinite(c.usAqi)?Math.round(c.usAqi):'—';
+  $('current-band').textContent=band.label;
+  $('current-pm25').textContent=niceNumber(c.pm25);
+  $('current-pm10').textContent=niceNumber(c.pm10);
+  $('aqi-description').textContent=band.description;
+  $('insight-title').textContent=plan.intensity;
+  $('insight-text').textContent=plan.intro;
+  renderSource();renderChart();
+}
+const SVG='http://www.w3.org/2000/svg';
+function svgNode(tag,attrs={},text){const n=document.createElementNS(SVG,tag);for(const [key,v] of Object.entries(attrs))n.setAttribute(key,String(v));if(text!==undefined)n.textContent=String(text);return n;}
+function renderChart(){
+  const graph=$('forecast-chart');clear(graph);
+  const points=(air.hours||[]).filter(x=>Number.isFinite(x.usAqi)).slice(0,12);
+  if(!points.length){graph.setAttribute('aria-label','No hourly data available');return;}
+  const width=720,height=190,left=37,right=20,top=15,bottom=43;
+  const all=points.map(p=>p.usAqi);
+  const max=Math.max(200,Math.ceil(Math.max(...all)*1.12/50)*50),y=v=>top+(height-top-bottom)*(1-v/max);
+  graph.setAttribute('aria-label',`${air.live?'Modeled UTC':'Invented example'} hourly US AQI: ${points.map(x=>`${x.time}: ${Math.round(x.usAqi)}`).join(', ')}`);
+  for(const val of [0,Math.round(max/2),max]){
+    const yy=y(val);
+    graph.append(svgNode('line',{x1:left,y1:yy,x2:width-right,y2:yy,stroke:'#e7efea','stroke-width':1,'stroke-dasharray':'4,5'}));
+    graph.append(svgNode('text',{x:left-8,y:yy+4,'text-anchor':'end',fill:'#52636b','font-size':11,'font-family':'Arial'},val));
+  }
+  const sectionWidth=(width-left-right)/points.length,barWidth=Math.min(35,sectionWidth*.56);
+  const table=$('forecast-rows');clear(table);
+  points.forEach((p,i)=>{
+    const row=el('tr');row.append(el('th','',p.time),el('td','',Math.round(p.usAqi)),el('td','',Number.isFinite(p.pm25)?niceNumber(p.pm25):'Not provided'));table.append(row);
+    const xx=left+i*sectionWidth+(sectionWidth-barWidth)/2,yy=y(p.usAqi);
+    const fill=p.usAqi<=50?'#6abca0':p.usAqi<=100?'#88bd9b':p.usAqi<=150?'#e3af72':p.usAqi<=200?'#e18d76':'#b57997';
+    graph.append(svgNode('rect',{x:xx,y:yy,width:barWidth,height:height-bottom-yy,rx:6,fill}));
+    graph.append(svgNode('text',{x:xx+barWidth/2,y:yy-6,'text-anchor':'middle',fill:'#395b50','font-size':10,'font-weight':700,'font-family':'Arial'},Math.round(p.usAqi)));
+    if(i%2===0||points.length<=7)graph.append(svgNode('text',{x:xx+barWidth/2,y:height-19,'text-anchor':'middle',fill:'#52636b','font-size':10,'font-family':'Arial'},p.time));
+  });
+}
+function actionIcon(i){return ['sun','cloud','moon'][i]||'leaf';}
+function renderPlan(){
+  plan=makePlan(profile,air);
+  $('plan-intensity').textContent=plan.intensity;
+  $('plan-intro').textContent=plan.intro;
+  const target=$('plan-action-list');clear(target);
+  plan.actions.forEach((a,i)=>{
+    const card=el('article','card plan-card');const head=el('div','plan-period');head.append(el('span','',a.period),icon(actionIcon(i)));
+    card.append(head,el('h3','',a.title),el('p','',a.detail));
+    const why=el('div','why-box');why.append(el('strong','','WHY THIS MATTERS'),el('span','',a.why));
+    card.append(why);const tag=el('div','plan-tag',a.tag);tag.style.marginTop='17px';card.append(tag);target.append(card);
+  });
+  const quick=$('overview-actions');clear(quick);
+  plan.actions.forEach((a,i)=>{
+    const card=el('article','card overview-action');const bubble=el('span','action-small-icon');bubble.append(icon(actionIcon(i)));
+    const body=el('div');body.append(el('div','action-time',a.period),el('h3','',a.title),el('p','',a.detail));card.append(bubble,body);quick.append(card);
+  });
+  const indoor=$('indoor-grid');clear(indoor);
+  plan.indoor.forEach((tip,i)=>{
+    const card=el('article','card indoor-guide-card'),ico=el('span','guide-icon');ico.append(icon(['shield','home','wind','spark'][i]||'leaf'));
+    const body=el('div');body.append(el('span','indoor-category',tip.category.toUpperCase()),el('h3','',tip.title),el('p','',tip.detail));card.append(ico,body);indoor.append(card);
+  });
+}
+function renderAll(){renderPlan();renderMetrics();}
+async function generateBrief(){
+  enforceForecastFreshness();
+  const button=$('generate-ai-brief');button.disabled=true;
+  $('ai-brief-content').textContent='Creating a careful family-specific summary…';
+  $('ai-brief-mode').textContent='GENERATING';
+  try {
+    let brief,mode;
+    if(standalone){
+      brief=`${plan.intro} Morning: ${plan.actions[0].title}. Afternoon: ${plan.actions[1].title}. Evening: ${plan.actions[2].title}. See the action cards for the reasons.`;
+      mode='rules-fallback';
+    }else{
+      const data=await api('/api/brief',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({profile,snapshotId:air.snapshotId||undefined})});
+      brief=data.brief;mode=data.mode;
+    }
+    $('ai-brief-content').textContent=brief;
+    $('ai-brief-mode').textContent=mode==='gemini'?'GEMINI SUMMARY · REVIEW ADVICE':'RULE-BASED SUMMARY · NO AI GENERATION';
+  }catch(e){
+    if(air.live && [400,409].includes(e.status)){air=demoAir(city.name);forecastWarning='Forecast token rejected; showing example data until you refresh.';renderAll();}
+    $('ai-brief-content').textContent=`AI brief unavailable. ${plan.intro}`;
+    $('ai-brief-mode').textContent='SAFE FALLBACK';
+  }finally{button.disabled=false;}
+}
+function enforceForecastFreshness(){
+  if(!air.live)return;
+  const expiresAt=Date.parse(air.snapshotExpiresAt||'');
+  if(!Number.isFinite(expiresAt)||Date.now()>=expiresAt){
+    forecastRequestVersion++;
+    air=demoAir(city.name);
+    forecastWarning='The previous forecast has expired. Reload it before using live recommendations.';
+    renderAll();
+    return;
+  }
+}
+async function chooseCity(chosen){
+  forecastRequestVersion++;
+  if(!Number.isFinite(chosen.latitude)||!Number.isFinite(chosen.longitude)){toast('Could not use this location.');return;}
+  city={name:chosen.name||'Current location',admin1:chosen.admin1||'',country:chosen.country||'',latitude:chosen.latitude,longitude:chosen.longitude};
+  air=demoAir(city.name);forecastWarning='';syncProfile();renderAll();$('city-input').value='';$('search-results').hidden=true;
+  toast(`Selected ${city.name}. Showing illustrative data until you load a live forecast.`);
+}
+async function findCity(event){
+  event.preventDefault();const q=$('city-input').value.trim();
+  if(q.length<2)return toast('Please type at least two letters.');
+  let choices=DEMO_CITIES.filter(x=>[x.name,x.admin1].join(' ').toLowerCase().includes(q.toLowerCase()));
+  if(!choices.length&&!standalone){try{const data=await api(`/api/locations?q=${encodeURIComponent(q)}`);choices=data.results||[];}
+    catch(e){toast(e.message);}}
+  const box=$('search-results');clear(box);box.hidden=false;
+  if(!choices.length){box.append(el('p','', 'No cities found. Try New Delhi, Pune, Mumbai, Bengaluru or Lucknow.'));return;}
+  choices.slice(0,5).forEach(item=>{
+    const btn=el('button');btn.type='button';btn.append(icon('pin'),el('span','',[item.name,item.admin1,item.country].filter(Boolean).join(', ')));
+    btn.addEventListener('click',()=>chooseCity(item));box.append(btn);
+  });
+}
+async function loadLive(){
+  if(standalone){toast('This standalone preview uses demo data. Run the full Node app for modeled forecasts.');return;}
+  const btn=$('try-live');btn.disabled=true;btn.setAttribute('aria-busy','true');btn.textContent='Loading forecast…';
+  const requestVersion=++forecastRequestVersion;
+  const selected={...city};
+  try{
+    const r=await api(`/api/air?lat=${encodeURIComponent(selected.latitude)}&lon=${encodeURIComponent(selected.longitude)}&city=${encodeURIComponent(selected.name)}`);
+    if(requestVersion!==forecastRequestVersion)return; // Ignore an old request after a city change.
+    if(!r.live || !r.snapshotId || !Number.isFinite(Date.parse(r.snapshotExpiresAt)))throw new Error('Provider response did not include a valid expiring forecast.');
+    air=r;forecastWarning='';renderAll();toast('Modeled US AQI forecast loaded. Source and timestamp are visible.');
+  }catch(e){
+    if(requestVersion===forecastRequestVersion){
+      // Never leave a previously trusted forecast visible after a failed refresh.
+      air=demoAir(city.name);forecastWarning='Live forecast could not be refreshed.';renderAll();
+      toast(`${e.message} Showing labeled example data instead.`);
+    }
+  }finally{btn.disabled=false;btn.removeAttribute('aria-busy');clear(btn);btn.append(icon('refresh'),document.createTextNode(' Load live forecast'));}
+}
+async function useGeo(){
+  if(!navigator.geolocation){toast('Geolocation unavailable; please search by city.');return;}
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    await chooseCity({name:'Your coordinates',admin1:'Manual location',country:'',latitude:pos.coords.latitude,longitude:pos.coords.longitude});
+    await loadLive();
+  },()=>toast('Location unavailable or permission denied. Use city search instead.'),{enableHighAccuracy:false,timeout:8500,maximumAge:10*60*1000});
+}
+function calculateImpact(event){
+  event?.preventDefault();
+  const km=Number($('distance').value),days=Number($('days').value),option=$('impact-option').value;
+  const carFactor=$('car-factor').value, optionFactor=$('alternative-factor').value;
+  try {
+    const r=travelImpact({distanceKm:km,daysPerWeek:days,option,carFactor,optionFactor});
+    $('saved-emissions').textContent=niceNumber(r.savedKg);
+    $('baseline-value').textContent=`${niceNumber(r.baselineKg)} kg`;
+    $('option-value').textContent=`${niceNumber(r.optionKg)} kg`;
+    $('option-label').textContent=$('impact-option').selectedOptions[0]?.textContent||option;
+    $('days-output').textContent=`${days} day${days===1?'':'s'} / week`;
+    $('baseline-bar').style.width='100%';
+    $('option-bar').style.width=`${Math.max(0,Math.min(100,r.baselineKg?100*r.optionKg/r.baselineKg:0))}%`;
+    const direction=r.savedKg>=0?'lower':'higher';
+    $('impact-explain').textContent=`Historical reference estimate: ${niceNumber(Math.abs(r.savedKg))} kg CO₂e ${direction} than a solo-car trip over ${niceNumber(r.weeklyKm,0)} km per week. No personal exposure change is implied.`;
+    $('factor-assumptions').textContent=`Assumptions: solo car ${r.factors.carKgPerKm} kg/km; ${option} ${r.factors.optionKgPerKm} kg/km. Both editable; WRI Table 27 reference, 2018–2021. Not verified current city-specific factors.`;
+  }catch(e){toast(e.message);}
+}
+function exportPlan(){
+  enforceForecastFreshness();
+  const lines=[`SMOGSAFE AI — DAILY PLAN`, `Location: ${city.name}`, `Data: ${air.live?`MODELED FORECAST • ${air.timestamp}`:'DEMO EXAMPLE (NOT LIVE)'}`,
+    `US AQI: ${air.current.usAqi} (${aqiBand(air.current.usAqi).label})`,`Household: ${JSON.stringify(profile)}`,'',plan.intensity,plan.intro,''];
+  for(const item of plan.actions)lines.push(`${item.period} — ${item.title}`,item.detail,`Why: ${item.why}`,'');
+  lines.push('INDOOR AIR GUIDE');
+  for(const tip of plan.indoor)lines.push(`• ${tip.title}: ${tip.detail}`);
+  lines.push('',plan.disclaimer,'Data source when live: Open-Meteo / Copernicus CAMS (modeled US AQI, not India AQI).');
+  const url=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));
+  const link=document.createElement('a');link.href=url;link.download='SmogSafe_AI_Family_Plan.txt';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
+  toast('Your current plan has been downloaded.');
+}
+function addMessage(message,role){
+  const box=$('chat-messages'),item=el('div',`message ${role}`);item.append(el('div','message-identity',role==='assistant'?'SmogSafe AI':'You'),el('p','',message));box.append(item);box.scrollTop=box.scrollHeight;
+  return item;
+}
+async function sendChat(message){
+  enforceForecastFreshness();
+  if(chatBusy)return;const q=message.trim();if(q.length<3){toast('Ask at least three characters.');return;}
+  chatBusy=true;$('send-chat').disabled=true;addMessage(q,'user');$('chat-input').value='';
+  const pending=addMessage('Thinking through a practical answer…','assistant');
+  try {
+    let answer,mode;
+    if(standalone){answer=fallbackAnswer(q,profile,air);mode='rules-fallback';}
+    else{const r=await api('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,profile,snapshotId:air.snapshotId||undefined})});answer=r.answer;mode=r.mode;}
+    pending.querySelector('p').textContent=answer;
+    $('chat-mode').replaceChildren(el('span','chat-mode-dot'),document.createTextNode(mode==='gemini'?' Gemini-powered answer':' Transparent rule-based guidance'));
+  }catch(e){
+    if(air.live && [400,409].includes(e.status)){air=demoAir(city.name);forecastWarning='Forecast token rejected; showing example data until you refresh.';renderAll();}
+    pending.querySelector('p').textContent=`The AI service is unavailable. ${fallbackAnswer(q,profile,air)}`;
+    $('chat-mode').replaceChildren(el('span','chat-mode-dot'),document.createTextNode(' Safe fallback guidance'));
+  }finally{chatBusy=false;$('send-chat').disabled=false;}
+}
+function updateClock(){const now=new Date();$('clock-date').textContent=now.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
+function start(){
+  updateClock();renderAll();calculateImpact();
+  for(const n of document.querySelectorAll('[data-view]'))n.addEventListener('click',()=>show(n.dataset.view));
+  $('nav-to-plan').addEventListener('click',()=>show('plan'));
+  $('profile-form').addEventListener('submit',e=>{e.preventDefault();syncProfile();renderAll();toast('Your household plan has been personalized.');});
+  $('city-form').addEventListener('submit',findCity);
+  $('use-location').addEventListener('click',useGeo);
+  $('try-live').addEventListener('click',loadLive);
+  $('menu-toggle').addEventListener('click',()=>{const open=$('sidebar').classList.toggle('open');$('menu-toggle').setAttribute('aria-expanded',String(open));});
+  $('generate-ai-brief').addEventListener('click',generateBrief);
+  $('overview-share').addEventListener('click',exportPlan);$('download-plan').addEventListener('click',exportPlan);
+  $('impact-form').addEventListener('submit',calculateImpact);$('days').addEventListener('input',calculateImpact);
+  $('impact-option').addEventListener('change',()=>{$('alternative-factor').value=String(ILLUSTRATIVE_KG_PER_KM[$('impact-option').value]);calculateImpact();});
+  $('car-factor').addEventListener('change',calculateImpact);$('alternative-factor').addEventListener('change',calculateImpact);
+  $('chat-form').addEventListener('submit',e=>{e.preventDefault();sendChat($('chat-input').value);});
+  for(const btn of document.querySelectorAll('[data-question]'))btn.addEventListener('click',()=>{show('copilot');sendChat(btn.dataset.question);});
+  if(!standalone)api('/api/health').then(x=>{$('chat-mode').replaceChildren(el('span','chat-mode-dot'),document.createTextNode(x.geminiConfigured?' Gemini is configured':' Rule-based guidance · add Gemini API key for GenAI'));}).catch(()=>{});
+  if(standalone){$('try-live').title='Standalone preview: use the runnable app for modeled forecasts.';}
+  setInterval(enforceForecastFreshness,30000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)enforceForecastFreshness();});
+}
+start();
+
+  </script>
+</body>
+</html>

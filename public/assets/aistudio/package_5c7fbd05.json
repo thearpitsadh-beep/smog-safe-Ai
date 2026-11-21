@@ -1,0 +1,14 @@
+{
+  "name": "smogsafe-ai",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Family-first air quality companion for PromptWars Urban Air Quality Assistant challenge",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check src/logic.mjs && node --check public/app.js && node --test tests/*.test.mjs"
+  },
+  "engines": {"node": ">=20"}
+}

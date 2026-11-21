@@ -1,0 +1,122 @@
+[
+  {
+    "viewport": "320px-phone",
+    "width": 320,
+    "interactiveImpact": true,
+    "noHorizontalOverflow": true,
+    "reducedMotion": true,
+    "contrastSamples": [
+      {
+        "selector": ".page-head .lead",
+        "value": 7.46
+      },
+      {
+        "selector": ".tiny-label",
+        "value": 7.95
+      },
+      {
+        "selector": ".chart-footer",
+        "value": 7.95
+      },
+      {
+        "selector": ".profile-card p",
+        "value": 7.95
+      },
+      {
+        "selector": ".eyebrow-mini",
+        "value": 7.95
+      }
+    ],
+    "errors": []
+  },
+  {
+    "viewport": "390px-phone",
+    "width": 390,
+    "interactiveImpact": true,
+    "noHorizontalOverflow": true,
+    "reducedMotion": true,
+    "contrastSamples": [
+      {
+        "selector": ".page-head .lead",
+        "value": 7.46
+      },
+      {
+        "selector": ".tiny-label",
+        "value": 7.95
+      },
+      {
+        "selector": ".chart-footer",
+        "value": 7.95
+      },
+      {
+        "selector": ".profile-card p",
+        "value": 7.95
+      },
+      {
+        "selector": ".eyebrow-mini",
+        "value": 7.95
+      }
+    ],
+    "errors": []
+  },
+  {
+    "viewport": "200-percent-zoom-equivalent",
+    "width": 640,
+    "interactiveImpact": true,
+    "noHorizontalOverflow": true,
+    "reducedMotion": true,
+    "contrastSamples": [
+      {
+        "selector": ".page-head .lead",
+        "value": 7.46
+      },
+      {
+        "selector": ".tiny-label",
+        "value": 7.95
+      },
+      {
+        "selector": ".chart-footer",
+        "value": 7.95
+      },
+      {
+        "selector": ".profile-card p",
+        "value": 7.95
+      },
+      {
+        "selector": ".eyebrow-mini",
+        "value": 7.95
+      }
+    ],
+    "errors": []
+  },
+  {
+    "viewport": "1440px-desktop",
+    "width": 1440,
+    "interactiveImpact": true,
+    "noHorizontalOverflow": true,
+    "reducedMotion": true,
+    "contrastSamples": [
+      {
+        "selector": ".page-head .lead",
+        "value": 7.46
+      },
+      {
+        "selector": ".tiny-label",
+        "value": 7.95
+      },
+      {
+        "selector": ".chart-footer",
+        "value": 7.95
+      },
+      {
+        "selector": ".profile-card p",
+        "value": 7.95
+      },
+      {
+        "selector": ".eyebrow-mini",
+        "value": 7.95
+      }
+    ],
+    "errors": []
+  }
+]

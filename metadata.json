@@ -1,0 +1,6 @@
+{
+  "name": "SmogSafe AI",
+  "description": "Family-first Urban Air Quality Assistant with server-verified forecasts, personalized daily routines, sourced emissions math, and schema-validated Gemini guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

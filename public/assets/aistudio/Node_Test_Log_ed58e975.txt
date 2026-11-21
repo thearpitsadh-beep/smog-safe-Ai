@@ -1,0 +1,1009 @@
+
+> smogsafe-ai-executive-v4@4.0.0 check
+> node --check server.mjs && node --check src/logic.mjs && node --check src/trust.mjs && node --check src/location.mjs && node --check src/provider.mjs && node --check src/gemini.mjs && node --check src/air.mjs && node --check public/app.js && node --check scripts/static_audit.mjs && npm run lint && npm test
+
+
+> smogsafe-ai-executive-v4@4.0.0 lint
+> node scripts/static_audit.mjs
+
+PASS Server owns Gemini key
+PASS No untrusted HTML sink in frontend
+PASS Client uses textContent for model responses
+PASS Client supplies coordinates with profiles
+PASS Server enforces geographic provenance
+PASS Server prevents forged live data
+PASS Client expires trusted snapshots
+PASS Client discards stale city fetches
+PASS Model output is schema checked
+PASS Network data remains a modeled US AQI
+PASS Built-in explanatory text distinguishes emissions and exposure
+PASS No raw .env committed
+PASS Streaming provider caps bytes before JSON parsing
+PASS Gemini transport uses bounded JSON
+PASS High-risk health questions avoid Gemini
+PASS Live AI claims are checked against trusted current AQI
+PASS Impact reference is dated, cited and editable
+PASS Null and malformed profile objects are handled
+PASS API sends CSP and clickjacking headers
+PASS Keyboard skip navigation is present
+Static invariants: 20/20 passed (not a complete security or style audit).
+
+> smogsafe-ai-executive-v4@4.0.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: A syntactically valid Gemini answer is displayed only after structured validation
+ok 1 - A syntactically valid Gemini answer is displayed only after structured validation
+  ---
+  duration_ms: 53.042698
+  type: 'test'
+  ...
+# Subtest: A Gemini upstream body exceeding 48KB is rejected before JSON parsing and returns safe fallback
+ok 2 - A Gemini upstream body exceeding 48KB is rejected before JSON parsing and returns safe fallback
+  ---
+  duration_ms: 9.74911
+  type: 'test'
+  ...
+# Subtest: High-risk health question bypasses Gemini even if configured
+ok 3 - High-risk health question bypasses Gemini even if configured
+  ---
+  duration_ms: 4.196615
+  type: 'test'
+  ...
+# Subtest: Medical prescriptions and unsourced numeric current AQI are rejected
+ok 4 - Medical prescriptions and unsourced numeric current AQI are rejected
+  ---
+  duration_ms: 1.698406
+  type: 'test'
+  ...
+# Subtest: High-stakes health classifier catches urgent symptoms but permits general prevention questions
+ok 5 - High-stakes health classifier catches urgent symptoms but permits general prevention questions
+  ---
+  duration_ms: 0.403377
+  type: 'test'
+  ...
+# Subtest: Provider UTC AQI is labelled forecast and has a correct timestamp
+ok 6 - Provider UTC AQI is labelled forecast and has a correct timestamp
+  ---
+  duration_ms: 2.693363
+  type: 'test'
+  ...
+# Subtest: Stale data cannot be served as live forecast
+ok 7 - Stale data cannot be served as live forecast
+  ---
+  duration_ms: 0.672301
+  type: 'test'
+  ...
+# Subtest: Far-future timestamps cannot be served as live
+ok 8 - Far-future timestamps cannot be served as live
+  ---
+  duration_ms: 0.359521
+  type: 'test'
+  ...
+# Subtest: Invalid and negative US AQI are rejected
+ok 9 - Invalid and negative US AQI are rejected
+  ---
+  duration_ms: 0.400052
+  type: 'test'
+  ...
+# Subtest: Negative pollutant values are not presented as valid readings
+ok 10 - Negative pollutant values are not presented as valid readings
+  ---
+  duration_ms: 0.541144
+  type: 'test'
+  ...
+# Subtest: Forecast hourly list must be usable and chronological
+ok 11 - Forecast hourly list must be usable and chronological
+  ---
+  duration_ms: 0.3395
+  type: 'test'
+  ...
+# Subtest: Missing and null household profiles receive safe defaults instead of server crashes
+ok 12 - Missing and null household profiles receive safe defaults instead of server crashes
+  ---
+  duration_ms: 41.81382
+  type: 'test'
+  ...
+# Subtest: City profile normalization removes control characters and forged prompt requests
+ok 13 - City profile normalization removes control characters and forged prompt requests
+  ---
+  duration_ms: 0.291809
+  type: 'test'
+  ...
+# Subtest: Every household plan includes actionable reasons, a safety disclaimer and three daily periods
+ok 14 - Every household plan includes actionable reasons, a safety disclaimer and three daily periods
+  ---
+  duration_ms: 1.911196
+  type: 'test'
+  ...
+# Subtest: WRI benchmark factors are explicitly dated and match the published non-US transport rows
+ok 15 - WRI benchmark factors are explicitly dated and match the published non-US transport rows
+  ---
+  duration_ms: 0.933324
+  type: 'test'
+  ...
+# Subtest: Manually adjusted factors cannot be mislabeled as published historical WRI values
+ok 16 - Manually adjusted factors cannot be mislabeled as published historical WRI values
+  ---
+  duration_ms: 0.300041
+  type: 'test'
+  ...
+# Subtest: Submission-facing API returns explicit source mode and never accepts forged browser AQI
+ok 17 - Submission-facing API returns explicit source mode and never accepts forged browser AQI
+  ---
+  duration_ms: 19.326081
+  type: 'test'
+  ...
+# Subtest: Static route exposes strict CSP without unsafe-inline and correct v4 health version
+ok 18 - Static route exposes strict CSP without unsafe-inline and correct v4 health version
+  ---
+  duration_ms: 12.774328
+  type: 'test'
+  ...
+# Subtest: When no key is configured the Gemini module does not call upstream
+ok 19 - When no key is configured the Gemini module does not call upstream
+  ---
+  duration_ms: 1.230352
+  type: 'test'
+  ...
+# Subtest: Gemini module keeps key in headers, not URL or returned answer
+ok 20 - Gemini module keeps key in headers, not URL or returned answer
+  ---
+  duration_ms: 31.130104
+  type: 'test'
+  ...
+# Subtest: Upstream error, refusal, missing candidate and incomplete generation do not become user-visible advice
+ok 21 - Upstream error, refusal, missing candidate and incomplete generation do not become user-visible advice
+  ---
+  duration_ms: 1.656372
+  type: 'test'
+  ...
+# Subtest: Wrong JSON, unexpected schema, too-short text and excessive text are blocked
+ok 22 - Wrong JSON, unexpected schema, too-short text and excessive text are blocked
+  ---
+  duration_ms: 4.346541
+  type: 'test'
+  ...
+# Subtest: Invalid server-selected Gemini model cannot be passed into the URL
+ok 23 - Invalid server-selected Gemini model cannot be passed into the URL
+  ---
+  duration_ms: 0.496417
+  type: 'test'
+  ...
+# Subtest: The earth-distance calculation is zero at an identical point
+ok 24 - The earth-distance calculation is zero at an identical point
+  ---
+  duration_ms: 1.077992
+  type: 'test'
+  ...
+# Subtest: Delhi and Mumbai are geographically far apart
+ok 25 - Delhi and Mumbai are geographically far apart
+  ---
+  duration_ms: 0.178148
+  type: 'test'
+  ...
+# Subtest: Unbounded or missing coordinates cannot be trusted
+ok 26 - Unbounded or missing coordinates cannot be trusted
+  ---
+  duration_ms: 0.192249
+  type: 'test'
+  ...
+# Subtest: Known built-in names resolve with punctuation and case normalized
+ok 27 - Known built-in names resolve with punctuation and case normalized
+  ---
+  duration_ms: 0.178238
+  type: 'test'
+  ...
+# Subtest: Known cities must match forecast coordinates
+ok 28 - Known cities must match forecast coordinates
+  ---
+  duration_ms: 0.398099
+  type: 'test'
+  ...
+# Subtest: Explicit coordinates must match the issued snapshot
+ok 29 - Explicit coordinates must match the issued snapshot
+  ---
+  duration_ms: 0.16625
+  type: 'test'
+  ...
+# Subtest: An unknown display label cannot establish a location without coordinates
+ok 30 - An unknown display label cannot establish a location without coordinates
+  ---
+  duration_ms: 0.14607
+  type: 'test'
+  ...
+# Subtest: A custom location with matching coordinates is supported
+ok 31 - A custom location with matching coordinates is supported
+  ---
+  duration_ms: 0.093661
+  type: 'test'
+  ...
+# Subtest: Small regional coordinate shifts are tolerated but distant ones are rejected
+ok 32 - Small regional coordinate shifts are tolerated but distant ones are rejected
+  ---
+  duration_ms: 0.444539
+  type: 'test'
+  ...
+# Subtest: City labels at forecast-fetch time must match coordinates
+ok 33 - City labels at forecast-fetch time must match coordinates
+  ---
+  duration_ms: 0.477409
+  type: 'test'
+  ...
+# Subtest: US AQI 0 categorizes as Good
+ok 34 - US AQI 0 categorizes as Good
+  ---
+  duration_ms: 1.553367
+  type: 'test'
+  ...
+# Subtest: US AQI 50 categorizes as Good
+ok 35 - US AQI 50 categorizes as Good
+  ---
+  duration_ms: 0.196045
+  type: 'test'
+  ...
+# Subtest: US AQI 51 categorizes as Moderate
+ok 36 - US AQI 51 categorizes as Moderate
+  ---
+  duration_ms: 1.074877
+  type: 'test'
+  ...
+# Subtest: US AQI 100 categorizes as Moderate
+ok 37 - US AQI 100 categorizes as Moderate
+  ---
+  duration_ms: 0.121463
+  type: 'test'
+  ...
+# Subtest: US AQI 101 categorizes as Unhealthy for sensitive groups
+ok 38 - US AQI 101 categorizes as Unhealthy for sensitive groups
+  ---
+  duration_ms: 0.149464
+  type: 'test'
+  ...
+# Subtest: US AQI 150 categorizes as Unhealthy for sensitive groups
+ok 39 - US AQI 150 categorizes as Unhealthy for sensitive groups
+  ---
+  duration_ms: 0.118258
+  type: 'test'
+  ...
+# Subtest: US AQI 151 categorizes as Unhealthy
+ok 40 - US AQI 151 categorizes as Unhealthy
+  ---
+  duration_ms: 0.102985
+  type: 'test'
+  ...
+# Subtest: US AQI 200 categorizes as Unhealthy
+ok 41 - US AQI 200 categorizes as Unhealthy
+  ---
+  duration_ms: 0.091658
+  type: 'test'
+  ...
+# Subtest: US AQI 201 categorizes as Very unhealthy
+ok 42 - US AQI 201 categorizes as Very unhealthy
+  ---
+  duration_ms: 0.384268
+  type: 'test'
+  ...
+# Subtest: US AQI 300 categorizes as Very unhealthy
+ok 43 - US AQI 300 categorizes as Very unhealthy
+  ---
+  duration_ms: 0.36529
+  type: 'test'
+  ...
+# Subtest: US AQI 301 categorizes as Hazardous
+ok 44 - US AQI 301 categorizes as Hazardous
+  ---
+  duration_ms: 0.158178
+  type: 'test'
+  ...
+# Subtest: Invalid AQI explicitly reads unavailable
+ok 45 - Invalid AQI explicitly reads unavailable
+  ---
+  duration_ms: 0.11933
+  type: 'test'
+  ...
+# Subtest: Demo city collection contains several verified place coordinates
+ok 46 - Demo city collection contains several verified place coordinates
+  ---
+  duration_ms: 0.210106
+  type: 'test'
+  ...
+# Subtest: Demo AQI is clearly never live
+ok 47 - Demo AQI is clearly never live
+  ---
+  duration_ms: 0.189626
+  type: 'test'
+  ...
+# Subtest: Each city has a distinct demo scenario
+ok 48 - Each city has a distinct demo scenario
+  ---
+  duration_ms: 0.170527
+  type: 'test'
+  ...
+# Subtest: Unknown demo city falls back, clearly still marked demo
+ok 49 - Unknown demo city falls back, clearly still marked demo
+  ---
+  duration_ms: 0.123917
+  type: 'test'
+  ...
+# Subtest: Profile only accepts strict valid enum values
+ok 50 - Profile only accepts strict valid enum values
+  ---
+  duration_ms: 0.87066
+  type: 'test'
+  ...
+# Subtest: Profile clamps user-supplied city input
+ok 51 - Profile clamps user-supplied city input
+  ---
+  duration_ms: 0.45202
+  type: 'test'
+  ...
+# Subtest: Only true booleans are accepted for sensitive profile flags
+ok 52 - Only true booleans are accepted for sensitive profile flags
+  ---
+  duration_ms: 0.974446
+  type: 'test'
+  ...
+# Subtest: High US AQI produces cautious outdoor advice
+ok 53 - High US AQI produces cautious outdoor advice
+  ---
+  duration_ms: 0.539673
+  type: 'test'
+  ...
+# Subtest: Good air produces a different morning action
+ok 54 - Good air produces a different morning action
+  ---
+  duration_ms: 0.225259
+  type: 'test'
+  ...
+# Subtest: Sensitive-group AQI leads to caution
+ok 55 - Sensitive-group AQI leads to caution
+  ---
+  duration_ms: 0.241814
+  type: 'test'
+  ...
+# Subtest: Low budget offers free source control instead of demanding a purifier
+ok 56 - Low budget offers free source control instead of demanding a purifier
+  ---
+  duration_ms: 0.168544
+  type: 'test'
+  ...
+# Subtest: Existing purifier receives appropriate HEPA guidance
+ok 57 - Existing purifier receives appropriate HEPA guidance
+  ---
+  duration_ms: 0.140642
+  type: 'test'
+  ...
+# Subtest: No recommendation promotes ozone-generating purifiers
+ok 58 - No recommendation promotes ozone-generating purifiers
+  ---
+  duration_ms: 0.209135
+  type: 'test'
+  ...
+# Subtest: Family profile influences evening routine
+ok 59 - Family profile influences evening routine
+  ---
+  duration_ms: 0.331869
+  type: 'test'
+  ...
+# Subtest: Transport choices yield meaningful differences
+ok 60 - Transport choices yield meaningful differences
+  ---
+  duration_ms: 0.135103
+  type: 'test'
+  ...
+# Subtest: Every action contains a transparent explanation of its impact
+ok 61 - Every action contains a transparent explanation of its impact
+  ---
+  duration_ms: 0.135665
+  type: 'test'
+  ...
+# Subtest: Planning accurately distinguishes example and live provider data
+ok 62 - Planning accurately distinguishes example and live provider data
+  ---
+  duration_ms: 0.143485
+  type: 'test'
+  ...
+# Subtest: Plan has three daily periods and four indoor ideas
+ok 63 - Plan has three daily periods and four indoor ideas
+  ---
+  duration_ms: 0.185219
+  type: 'test'
+  ...
+# Subtest: Plan does not imply that emissions and personal exposure are the same
+ok 64 - Plan does not imply that emissions and personal exposure are the same
+  ---
+  duration_ms: 0.167742
+  type: 'test'
+  ...
+# Subtest: Travel impact calculates baseline and avoided emissions
+ok 65 - Travel impact calculates baseline and avoided emissions
+  ---
+  duration_ms: 4.369555
+  type: 'test'
+  ...
+# Subtest: Travel impact remote working has zero commute emissions in illustrative model
+ok 66 - Travel impact remote working has zero commute emissions in illustrative model
+  ---
+  duration_ms: 0.134322
+  type: 'test'
+  ...
+# Subtest: Travel impact driving baseline saves zero
+ok 67 - Travel impact driving baseline saves zero
+  ---
+  duration_ms: 0.116926
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects negative distance
+ok 68 - Travel impact rejects negative distance
+  ---
+  duration_ms: 0.453322
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects extreme distances
+ok 69 - Travel impact rejects extreme distances
+  ---
+  duration_ms: 3.245134
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects fractional travel days
+ok 70 - Travel impact rejects fractional travel days
+  ---
+  duration_ms: 0.139901
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects invalid travel days
+ok 71 - Travel impact rejects invalid travel days
+  ---
+  duration_ms: 0.116806
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects unknown transport
+ok 72 - Travel impact rejects unknown transport
+  ---
+  duration_ms: 0.107021
+  type: 'test'
+  ...
+# Subtest: Travel impact explains emission estimates are not exposure estimates
+ok 73 - Travel impact explains emission estimates are not exposure estimates
+  ---
+  duration_ms: 0.162545
+  type: 'test'
+  ...
+# Subtest: Every transport option has a factor
+ok 74 - Every transport option has a factor
+  ---
+  duration_ms: 0.155585
+  type: 'test'
+  ...
+# Subtest: Fallback refuses secret-extraction questions
+ok 75 - Fallback refuses secret-extraction questions
+  ---
+  duration_ms: 0.320001
+  type: 'test'
+  ...
+# Subtest: Fallback responds safely to medical questions
+ok 76 - Fallback responds safely to medical questions
+  ---
+  duration_ms: 0.280002
+  type: 'test'
+  ...
+# Subtest: Fallback answers indoor pollutant control questions
+ok 77 - Fallback answers indoor pollutant control questions
+  ---
+  duration_ms: 0.269335
+  type: 'test'
+  ...
+# Subtest: Fallback answers lower-emission commuting questions
+ok 78 - Fallback answers lower-emission commuting questions
+  ---
+  duration_ms: 0.596107
+  type: 'test'
+  ...
+# Subtest: Fallback labels demo AQI as a scenario, not measured
+ok 79 - Fallback labels demo AQI as a scenario, not measured
+  ---
+  duration_ms: 0.332701
+  type: 'test'
+  ...
+# Subtest: Default fallback produces actionable steps
+ok 80 - Default fallback produces actionable steps
+  ---
+  duration_ms: 0.222164
+  type: 'test'
+  ...
+# Subtest: Impact factor override is transparent and changes model results
+ok 81 - Impact factor override is transparent and changes model results
+  ---
+  duration_ms: 0.174432
+  type: 'test'
+  ...
+# Subtest: Impact estimator reports negative savings rather than hiding excess emissions
+ok 82 - Impact estimator reports negative savings rather than hiding excess emissions
+  ---
+  duration_ms: 0.114342
+  type: 'test'
+  ...
+# Subtest: Invalid car factor -1 is rejected
+ok 83 - Invalid car factor -1 is rejected
+  ---
+  duration_ms: 0.170657
+  type: 'test'
+  ...
+# Subtest: Invalid alternative factor -1 is rejected
+ok 84 - Invalid alternative factor -1 is rejected
+  ---
+  duration_ms: 0.219811
+  type: 'test'
+  ...
+# Subtest: Invalid car factor 2.1 is rejected
+ok 85 - Invalid car factor 2.1 is rejected
+  ---
+  duration_ms: 0.102995
+  type: 'test'
+  ...
+# Subtest: Invalid alternative factor 2.1 is rejected
+ok 86 - Invalid alternative factor 2.1 is rejected
+  ---
+  duration_ms: 0.095874
+  type: 'test'
+  ...
+# Subtest: Invalid car factor Infinity is rejected
+ok 87 - Invalid car factor Infinity is rejected
+  ---
+  duration_ms: 0.092529
+  type: 'test'
+  ...
+# Subtest: Invalid alternative factor Infinity is rejected
+ok 88 - Invalid alternative factor Infinity is rejected
+  ---
+  duration_ms: 0.085698
+  type: 'test'
+  ...
+# Subtest: Invalid car factor NaN is rejected
+ok 89 - Invalid car factor NaN is rejected
+  ---
+  duration_ms: 0.082334
+  type: 'test'
+  ...
+# Subtest: Invalid alternative factor NaN is rejected
+ok 90 - Invalid alternative factor NaN is rejected
+  ---
+  duration_ms: 0.112199
+  type: 'test'
+  ...
+# Subtest: Repeated upstream requests use bounded in-memory cache
+ok 91 - Repeated upstream requests use bounded in-memory cache
+  ---
+  duration_ms: 48.84432
+  type: 'test'
+  ...
+# Subtest: Simultaneous upstream requests are deduplicated
+ok 92 - Simultaneous upstream requests are deduplicated
+  ---
+  duration_ms: 22.316522
+  type: 'test'
+  ...
+# Subtest: Oversized upstream response is blocked
+ok 93 - Oversized upstream response is blocked
+  ---
+  duration_ms: 1.503182
+  type: 'test'
+  ...
+# Subtest: Malformed upstream JSON cannot populate the cache
+ok 94 - Malformed upstream JSON cannot populate the cache
+  ---
+  duration_ms: 1.174247
+  type: 'test'
+  ...
+# Subtest: Stream reader accepts multiple UTF-8 chunks within the declared cap
+ok 95 - Stream reader accepts multiple UTF-8 chunks within the declared cap
+  ---
+  duration_ms: 27.641544
+  type: 'test'
+  ...
+# Subtest: Stream reader stops at the first oversized cumulative byte count and cancels stream
+ok 96 - Stream reader stops at the first oversized cumulative byte count and cancels stream
+  ---
+  duration_ms: 1.130791
+  type: 'test'
+  ...
+# Subtest: Declared oversized content-length is rejected without consuming response body
+ok 97 - Declared oversized content-length is rejected without consuming response body
+  ---
+  duration_ms: 0.639092
+  type: 'test'
+  ...
+# Subtest: Invalid UTF-8 and malformed JSON are safely rejected
+ok 98 - Invalid UTF-8 and malformed JSON are safely rejected
+  ---
+  duration_ms: 0.891882
+  type: 'test'
+  ...
+# Subtest: JSON arrays are rejected when an object is required
+ok 99 - JSON arrays are rejected when an object is required
+  ---
+  duration_ms: 1.321538
+  type: 'test'
+  ...
+# Subtest: Provider cache is protected from mutation of returned objects
+ok 100 - Provider cache is protected from mutation of returned objects
+  ---
+  duration_ms: 1.146715
+  type: 'test'
+  ...
+# Subtest: Failed provider requests never create cached responses
+ok 101 - Failed provider requests never create cached responses
+  ---
+  duration_ms: 1.265725
+  type: 'test'
+  ...
+# Subtest: Simultaneous consumers get separate response objects
+ok 102 - Simultaneous consumers get separate response objects
+  ---
+  duration_ms: 0.711922
+  type: 'test'
+  ...
+# Subtest: Health reports demo and Gemini config truthfully
+ok 103 - Health reports demo and Gemini config truthfully
+  ---
+  duration_ms: 25.725501
+  type: 'test'
+  ...
+# Subtest: Static HTML loads with strict safety headers
+ok 104 - Static HTML loads with strict safety headers
+  ---
+  duration_ms: 4.673072
+  type: 'test'
+  ...
+# Subtest: Core JS bundle is served
+ok 105 - Core JS bundle is served
+  ---
+  duration_ms: 3.928342
+  type: 'test'
+  ...
+# Subtest: CSS is served correctly
+ok 106 - CSS is served correctly
+  ---
+  duration_ms: 4.682686
+  type: 'test'
+  ...
+# Subtest: Logic module is served for browser import
+ok 107 - Logic module is served for browser import
+  ---
+  duration_ms: 4.179689
+  type: 'test'
+  ...
+# Subtest: Live forecast rejects invalid coordinates before outbound request
+ok 108 - Live forecast rejects invalid coordinates before outbound request
+  ---
+  duration_ms: 10.468202
+  type: 'test'
+  ...
+# Subtest: Geocoding rejects too-short search input
+ok 109 - Geocoding rejects too-short search input
+  ---
+  duration_ms: 2.39864
+  type: 'test'
+  ...
+# Subtest: Geocoding returns known city without network calls
+ok 110 - Geocoding returns known city without network calls
+  ---
+  duration_ms: 2.653212
+  type: 'test'
+  ...
+# Subtest: Demo endpoint clearly labels data as invented
+ok 111 - Demo endpoint clearly labels data as invented
+  ---
+  duration_ms: 2.968547
+  type: 'test'
+  ...
+# Subtest: Plan API returns three daily recommendations
+ok 112 - Plan API returns three daily recommendations
+  ---
+  duration_ms: 10.262678
+  type: 'test'
+  ...
+# Subtest: Plan API invalid payload returns a proper client error
+ok 113 - Plan API invalid payload returns a proper client error
+  ---
+  duration_ms: 2.615646
+  type: 'test'
+  ...
+# Subtest: Impact API estimates emissions accurately
+ok 114 - Impact API estimates emissions accurately
+  ---
+  duration_ms: 7.202669
+  type: 'test'
+  ...
+# Subtest: Impact API rejects extreme distance
+ok 115 - Impact API rejects extreme distance
+  ---
+  duration_ms: 3.831606
+  type: 'test'
+  ...
+# Subtest: Chat API rejects trivially short queries
+ok 116 - Chat API rejects trivially short queries
+  ---
+  duration_ms: 2.40537
+  type: 'test'
+  ...
+# Subtest: Chat returns safe rule-based answer without API key
+ok 117 - Chat returns safe rule-based answer without API key
+  ---
+  duration_ms: 2.818081
+  type: 'test'
+  ...
+# Subtest: Chat answer refuses prompt/secret extraction
+ok 118 - Chat answer refuses prompt/secret extraction
+  ---
+  duration_ms: 2.547093
+  type: 'test'
+  ...
+# Subtest: Malformed JSON returns 400
+ok 119 - Malformed JSON returns 400
+  ---
+  duration_ms: 2.454283
+  type: 'test'
+  ...
+# Subtest: Oversized payload is rejected
+ok 120 - Oversized payload is rejected
+  ---
+  duration_ms: 2.989749
+  type: 'test'
+  ...
+# Subtest: Unknown route returns 404 and safe body
+ok 121 - Unknown route returns 404 and safe body
+  ---
+  duration_ms: 3.646617
+  type: 'test'
+  ...
+# Subtest: Unlisted static files are not exposed
+ok 122 - Unlisted static files are not exposed
+  ---
+  duration_ms: 1.311774
+  type: 'test'
+  ...
+# Subtest: Bad API route returns 404
+ok 123 - Bad API route returns 404
+  ---
+  duration_ms: 1.253276
+  type: 'test'
+  ...
+# Subtest: Static script does not expose Gemini key as hardcoded secret
+ok 124 - Static script does not expose Gemini key as hardcoded secret
+  ---
+  duration_ms: 1.972649
+  type: 'test'
+  ...
+# Subtest: Gemini-backed chat sends the server key only to Google endpoint (mocked provider)
+ok 125 - Gemini-backed chat sends the server key only to Google endpoint (mocked provider)
+  ---
+  duration_ms: 6.899132
+  type: 'test'
+  ...
+# Subtest: Gemini provider failure triggers deterministic fallback rather than broken chat
+ok 126 - Gemini provider failure triggers deterministic fallback rather than broken chat
+  ---
+  duration_ms: 3.296651
+  type: 'test'
+  ...
+# Subtest: Forged client live AQI is rejected by BOTH planner and chat
+ok 127 - Forged client live AQI is rejected by BOTH planner and chat
+  ---
+  duration_ms: 3.164052
+  type: 'test'
+  ...
+# Subtest: Unknown snapshot IDs cannot be used to claim provider data
+ok 128 - Unknown snapshot IDs cannot be used to claim provider data
+  ---
+  duration_ms: 3.101657
+  type: 'test'
+  ...
+# Subtest: Legacy demo inputs cannot override the server-owned example scenario
+ok 129 - Legacy demo inputs cannot override the server-owned example scenario
+  ---
+  duration_ms: 1.745206
+  type: 'test'
+  ...
+# Subtest: Live provider snapshots must be issued by /api/air and remain bound to modeled provider data
+ok 130 - Live provider snapshots must be issued by /api/air and remain bound to modeled provider data
+  ---
+  duration_ms: 7.224421
+  type: 'test'
+  ...
+# Subtest: Malformed origin, missing JSON Content-Type, and cross-origin mutation are rejected
+ok 131 - Malformed origin, missing JSON Content-Type, and cross-origin mutation are rejected
+  ---
+  duration_ms: 8.030394
+  type: 'test'
+  ...
+# Subtest: Invalid Gemini structured output triggers safe rules fallback
+ok 132 - Invalid Gemini structured output triggers safe rules fallback
+  ---
+  duration_ms: 3.01724
+  type: 'test'
+  ...
+# Subtest: Chat endpoint enforces the intended low per-minute limit
+ok 133 - Chat endpoint enforces the intended low per-minute limit
+  ---
+  duration_ms: 4.972452
+  type: 'test'
+  ...
+# Subtest: AI brief endpoint generates a structured deterministic family summary without an API key
+ok 134 - AI brief endpoint generates a structured deterministic family summary without an API key
+  ---
+  duration_ms: 2.116325
+  type: 'test'
+  ...
+# Subtest: AI brief rejects client forged air values
+ok 135 - AI brief rejects client forged air values
+  ---
+  duration_ms: 1.085073
+  type: 'test'
+  ...
+# Subtest: City label cannot masquerade as another city at forecast fetch
+ok 136 - City label cannot masquerade as another city at forecast fetch
+  ---
+  duration_ms: 25.828777
+  type: 'test'
+  ...
+# Subtest: Server snapshots are bound to selected city and profile coordinates for all relevant endpoints
+ok 137 - Server snapshots are bound to selected city and profile coordinates for all relevant endpoints
+  ---
+  duration_ms: 45.702371
+  type: 'test'
+  ...
+# Subtest: Stale provider measurements are rejected instead of rendered as live
+ok 138 - Stale provider measurements are rejected instead of rendered as live
+  ---
+  duration_ms: 12.250764
+  type: 'test'
+  ...
+# Subtest: Excessive provider body sizes are rejected safely
+ok 139 - Excessive provider body sizes are rejected safely
+  ---
+  duration_ms: 17.566985
+  type: 'test'
+  ...
+# Subtest: Request content type must be real JSON, not an arbitrary prefix
+ok 140 - Request content type must be real JSON, not an arbitrary prefix
+  ---
+  duration_ms: 3.342721
+  type: 'test'
+  ...
+# Subtest: Incomplete or blocked Gemini generations use rules fallback
+ok 141 - Incomplete or blocked Gemini generations use rules fallback
+  ---
+  duration_ms: 6.013689
+  type: 'test'
+  ...
+# Subtest: Only server-side modeled forecast data receives a snapshot
+ok 142 - Only server-side modeled forecast data receives a snapshot
+  ---
+  duration_ms: 1.097612
+  type: 'test'
+  ...
+# Subtest: Issued token resolves to a copy with provenance
+ok 143 - Issued token resolves to a copy with provenance
+  ---
+  duration_ms: 0.94375
+  type: 'test'
+  ...
+# Subtest: A guessed or tampered snapshot id is rejected
+ok 144 - A guessed or tampered snapshot id is rejected
+  ---
+  duration_ms: 0.221924
+  type: 'test'
+  ...
+# Subtest: Snapshots expire using a deterministic clock
+ok 145 - Snapshots expire using a deterministic clock
+  ---
+  duration_ms: 0.291569
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: null
+ok 146 - Unsafe model response is rejected: null
+  ---
+  duration_ms: 0.220472
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {}
+ok 147 - Unsafe model response is rejected: {}
+  ---
+  duration_ms: 0.070135
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: []
+ok 148 - Unsafe model response is rejected: []
+  ---
+  duration_ms: 0.109816
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":""}
+ok 149 - Unsafe model response is rejected: {"answer":""}
+  ---
+  duration_ms: 0.061312
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"yes"}
+ok 150 - Unsafe model response is rejected: {"answer":"yes"}
+  ---
+  duration_ms: 0.237728
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"Use a HEPA filter.","unsupported":true}
+ok 151 - Unsafe model response is rejected: {"answer":"Use a HEPA filter.","unsupported":true}
+  ---
+  duration_ms: 0.266391
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"This absolutely cures asthma."}
+ok 152 - Unsafe model response is rejected: {"answer":"This absolutely cures asthma."}
+  ---
+  duration_ms: 2.367532
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"It is completely safe."}
+ok 153 - Unsafe model response is rejected: {"answer":"It is completely safe."}
+  ---
+  duration_ms: 0.134622
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"AQI will drop by 70% if you open windows."}
+ok 154 - Unsafe model response is rejected: {"answer":"AQI will drop by 70% if you open windows."}
+  ---
+  duration_ms: 0.882538
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"You can save 50kg CO2e every month."}
+ok 155 - Unsafe model response is rejected: {"answer":"You can save 50kg CO2e every month."}
+  ---
+  duration_ms: 0.490608
+  type: 'test'
+  ...
+# Subtest: Unsafe model response is rejected: {"answer":"The live AQI is verified to be 100."}
+ok 156 - Unsafe model response is rejected: {"answer":"The live AQI is verified to be 100."}
+  ---
+  duration_ms: 0.289305
+  type: 'test'
+  ...
+# Subtest: A helpful bounded answer is accepted
+ok 157 - A helpful bounded answer is accepted
+  ---
+  duration_ms: 0.218158
+  type: 'test'
+  ...
+# Subtest: Sensitive secret-extraction questions bypass Gemini entirely
+ok 158 - Sensitive secret-extraction questions bypass Gemini entirely
+  ---
+  duration_ms: 0.432771
+  type: 'test'
+  ...
+# Subtest: Unsafe or misleading model guidance rejected: Use an ozone-generating purifier in your bedroom to remove all particles.
+ok 159 - Unsafe or misleading model guidance rejected: Use an ozone-generating purifier in your bedroom to remove all particles.
+  ---
+  duration_ms: 0.085809
+  type: 'test'
+  ...
+# Subtest: Unsafe or misleading model guidance rejected: Indoor plants alone can eliminate all smog from the home.
+ok 160 - Unsafe or misleading model guidance rejected: Indoor plants alone can eliminate all smog from the home.
+  ---
+  duration_ms: 0.045138
+  type: 'test'
+  ...
+# Subtest: Unsafe or misleading model guidance rejected: The current AQI in your city is 200, and it is an official measurement.
+ok 161 - Unsafe or misleading model guidance rejected: The current AQI in your city is 200, and it is an official measurement.
+  ---
+  duration_ms: 0.039209
+  type: 'test'
+  ...
+1..161
+# tests 161
+# suites 0
+# pass 161
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 647.43191

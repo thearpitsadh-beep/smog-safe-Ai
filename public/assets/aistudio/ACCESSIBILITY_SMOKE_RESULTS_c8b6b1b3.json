@@ -1,0 +1,32 @@
+[
+  {
+    "viewport": "small-mobile",
+    "width": 320,
+    "skipLinkKeyboardFocus": true,
+    "visibleButtonsLabeled": true,
+    "formLabelsPresent": true,
+    "liveDataStatusAccessible": true,
+    "horizontalOverflow": false,
+    "runtimeErrors": []
+  },
+  {
+    "viewport": "phone",
+    "width": 390,
+    "skipLinkKeyboardFocus": true,
+    "visibleButtonsLabeled": true,
+    "formLabelsPresent": true,
+    "liveDataStatusAccessible": true,
+    "horizontalOverflow": false,
+    "runtimeErrors": []
+  },
+  {
+    "viewport": "desktop",
+    "width": 1440,
+    "skipLinkKeyboardFocus": true,
+    "visibleButtonsLabeled": true,
+    "formLabelsPresent": true,
+    "liveDataStatusAccessible": true,
+    "horizontalOverflow": false,
+    "runtimeErrors": []
+  }
+]

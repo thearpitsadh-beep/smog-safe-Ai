@@ -1,0 +1,1 @@
+Extended accessibility smoke checks passed 4 viewports and sample ratios >=4.5:1

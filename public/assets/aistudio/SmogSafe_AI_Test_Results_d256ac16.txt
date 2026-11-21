@@ -1,0 +1,440 @@
+
+> smogsafe-ai@1.0.0 check
+> node --check server.mjs && node --check src/logic.mjs && node --check public/app.js && node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: US AQI 0 categorizes as Good
+ok 1 - US AQI 0 categorizes as Good
+  ---
+  duration_ms: 2.58821
+  type: 'test'
+  ...
+# Subtest: US AQI 50 categorizes as Good
+ok 2 - US AQI 50 categorizes as Good
+  ---
+  duration_ms: 0.360364
+  type: 'test'
+  ...
+# Subtest: US AQI 51 categorizes as Moderate
+ok 3 - US AQI 51 categorizes as Moderate
+  ---
+  duration_ms: 0.184922
+  type: 'test'
+  ...
+# Subtest: US AQI 100 categorizes as Moderate
+ok 4 - US AQI 100 categorizes as Moderate
+  ---
+  duration_ms: 0.227966
+  type: 'test'
+  ...
+# Subtest: US AQI 101 categorizes as Unhealthy for sensitive groups
+ok 5 - US AQI 101 categorizes as Unhealthy for sensitive groups
+  ---
+  duration_ms: 0.252874
+  type: 'test'
+  ...
+# Subtest: US AQI 150 categorizes as Unhealthy for sensitive groups
+ok 6 - US AQI 150 categorizes as Unhealthy for sensitive groups
+  ---
+  duration_ms: 0.206866
+  type: 'test'
+  ...
+# Subtest: US AQI 151 categorizes as Unhealthy
+ok 7 - US AQI 151 categorizes as Unhealthy
+  ---
+  duration_ms: 0.22758
+  type: 'test'
+  ...
+# Subtest: US AQI 200 categorizes as Unhealthy
+ok 8 - US AQI 200 categorizes as Unhealthy
+  ---
+  duration_ms: 2.15811
+  type: 'test'
+  ...
+# Subtest: US AQI 201 categorizes as Very unhealthy
+ok 9 - US AQI 201 categorizes as Very unhealthy
+  ---
+  duration_ms: 1.211363
+  type: 'test'
+  ...
+# Subtest: US AQI 300 categorizes as Very unhealthy
+ok 10 - US AQI 300 categorizes as Very unhealthy
+  ---
+  duration_ms: 0.635073
+  type: 'test'
+  ...
+# Subtest: US AQI 301 categorizes as Hazardous
+ok 11 - US AQI 301 categorizes as Hazardous
+  ---
+  duration_ms: 0.2164
+  type: 'test'
+  ...
+# Subtest: Invalid AQI explicitly reads unavailable
+ok 12 - Invalid AQI explicitly reads unavailable
+  ---
+  duration_ms: 0.175431
+  type: 'test'
+  ...
+# Subtest: Demo city collection contains several verified place coordinates
+ok 13 - Demo city collection contains several verified place coordinates
+  ---
+  duration_ms: 0.240951
+  type: 'test'
+  ...
+# Subtest: Demo AQI is clearly never live
+ok 14 - Demo AQI is clearly never live
+  ---
+  duration_ms: 0.692406
+  type: 'test'
+  ...
+# Subtest: Each city has a distinct demo scenario
+ok 15 - Each city has a distinct demo scenario
+  ---
+  duration_ms: 0.257515
+  type: 'test'
+  ...
+# Subtest: Unknown demo city falls back, clearly still marked demo
+ok 16 - Unknown demo city falls back, clearly still marked demo
+  ---
+  duration_ms: 0.122236
+  type: 'test'
+  ...
+# Subtest: Profile only accepts strict valid enum values
+ok 17 - Profile only accepts strict valid enum values
+  ---
+  duration_ms: 1.846768
+  type: 'test'
+  ...
+# Subtest: Profile clamps user-supplied city input
+ok 18 - Profile clamps user-supplied city input
+  ---
+  duration_ms: 0.150428
+  type: 'test'
+  ...
+# Subtest: Only true booleans are accepted for sensitive profile flags
+ok 19 - Only true booleans are accepted for sensitive profile flags
+  ---
+  duration_ms: 0.195365
+  type: 'test'
+  ...
+# Subtest: High US AQI produces cautious outdoor advice
+ok 20 - High US AQI produces cautious outdoor advice
+  ---
+  duration_ms: 0.680069
+  type: 'test'
+  ...
+# Subtest: Good air produces a different morning action
+ok 21 - Good air produces a different morning action
+  ---
+  duration_ms: 0.499841
+  type: 'test'
+  ...
+# Subtest: Sensitive-group AQI leads to caution
+ok 22 - Sensitive-group AQI leads to caution
+  ---
+  duration_ms: 0.310646
+  type: 'test'
+  ...
+# Subtest: Low budget offers free source control instead of demanding a purifier
+ok 23 - Low budget offers free source control instead of demanding a purifier
+  ---
+  duration_ms: 0.246568
+  type: 'test'
+  ...
+# Subtest: Existing purifier receives appropriate HEPA guidance
+ok 24 - Existing purifier receives appropriate HEPA guidance
+  ---
+  duration_ms: 0.295015
+  type: 'test'
+  ...
+# Subtest: No recommendation promotes ozone-generating purifiers
+ok 25 - No recommendation promotes ozone-generating purifiers
+  ---
+  duration_ms: 0.565415
+  type: 'test'
+  ...
+# Subtest: Family profile influences evening routine
+ok 26 - Family profile influences evening routine
+  ---
+  duration_ms: 0.946734
+  type: 'test'
+  ...
+# Subtest: Transport choices yield meaningful differences
+ok 27 - Transport choices yield meaningful differences
+  ---
+  duration_ms: 0.221924
+  type: 'test'
+  ...
+# Subtest: Every action contains a transparent explanation of its impact
+ok 28 - Every action contains a transparent explanation of its impact
+  ---
+  duration_ms: 0.192692
+  type: 'test'
+  ...
+# Subtest: Planning accurately distinguishes example and live provider data
+ok 29 - Planning accurately distinguishes example and live provider data
+  ---
+  duration_ms: 0.506631
+  type: 'test'
+  ...
+# Subtest: Plan has three daily periods and four indoor ideas
+ok 30 - Plan has three daily periods and four indoor ideas
+  ---
+  duration_ms: 0.313965
+  type: 'test'
+  ...
+# Subtest: Plan does not imply that emissions and personal exposure are the same
+ok 31 - Plan does not imply that emissions and personal exposure are the same
+  ---
+  duration_ms: 0.139858
+  type: 'test'
+  ...
+# Subtest: Travel impact calculates baseline and avoided emissions
+ok 32 - Travel impact calculates baseline and avoided emissions
+  ---
+  duration_ms: 0.271182
+  type: 'test'
+  ...
+# Subtest: Travel impact remote working has zero commute emissions in illustrative model
+ok 33 - Travel impact remote working has zero commute emissions in illustrative model
+  ---
+  duration_ms: 0.171038
+  type: 'test'
+  ...
+# Subtest: Travel impact driving baseline saves zero
+ok 34 - Travel impact driving baseline saves zero
+  ---
+  duration_ms: 0.158616
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects negative distance
+ok 35 - Travel impact rejects negative distance
+  ---
+  duration_ms: 1.007541
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects extreme distances
+ok 36 - Travel impact rejects extreme distances
+  ---
+  duration_ms: 0.155874
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects fractional travel days
+ok 37 - Travel impact rejects fractional travel days
+  ---
+  duration_ms: 0.155116
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects invalid travel days
+ok 38 - Travel impact rejects invalid travel days
+  ---
+  duration_ms: 0.163235
+  type: 'test'
+  ...
+# Subtest: Travel impact rejects unknown transport
+ok 39 - Travel impact rejects unknown transport
+  ---
+  duration_ms: 0.10374
+  type: 'test'
+  ...
+# Subtest: Travel impact explains emission estimates are not exposure estimates
+ok 40 - Travel impact explains emission estimates are not exposure estimates
+  ---
+  duration_ms: 0.0884
+  type: 'test'
+  ...
+# Subtest: Every transport option has a factor
+ok 41 - Every transport option has a factor
+  ---
+  duration_ms: 0.934623
+  type: 'test'
+  ...
+# Subtest: Fallback refuses secret-extraction questions
+ok 42 - Fallback refuses secret-extraction questions
+  ---
+  duration_ms: 0.401253
+  type: 'test'
+  ...
+# Subtest: Fallback responds safely to medical questions
+ok 43 - Fallback responds safely to medical questions
+  ---
+  duration_ms: 2.306291
+  type: 'test'
+  ...
+# Subtest: Fallback answers indoor pollutant control questions
+ok 44 - Fallback answers indoor pollutant control questions
+  ---
+  duration_ms: 0.563568
+  type: 'test'
+  ...
+# Subtest: Fallback answers lower-emission commuting questions
+ok 45 - Fallback answers lower-emission commuting questions
+  ---
+  duration_ms: 0.371755
+  type: 'test'
+  ...
+# Subtest: Fallback labels demo AQI as a scenario, not measured
+ok 46 - Fallback labels demo AQI as a scenario, not measured
+  ---
+  duration_ms: 0.359229
+  type: 'test'
+  ...
+# Subtest: Default fallback produces actionable steps
+ok 47 - Default fallback produces actionable steps
+  ---
+  duration_ms: 0.431814
+  type: 'test'
+  ...
+# Subtest: Health reports demo and Gemini config truthfully
+ok 48 - Health reports demo and Gemini config truthfully
+  ---
+  duration_ms: 40.807037
+  type: 'test'
+  ...
+# Subtest: Static HTML loads with strict safety headers
+ok 49 - Static HTML loads with strict safety headers
+  ---
+  duration_ms: 12.654917
+  type: 'test'
+  ...
+# Subtest: Core JS bundle is served
+ok 50 - Core JS bundle is served
+  ---
+  duration_ms: 5.875681
+  type: 'test'
+  ...
+# Subtest: CSS is served correctly
+ok 51 - CSS is served correctly
+  ---
+  duration_ms: 4.562215
+  type: 'test'
+  ...
+# Subtest: Logic module is served for browser import
+ok 52 - Logic module is served for browser import
+  ---
+  duration_ms: 3.436031
+  type: 'test'
+  ...
+# Subtest: Live forecast rejects invalid coordinates before outbound request
+ok 53 - Live forecast rejects invalid coordinates before outbound request
+  ---
+  duration_ms: 6.93207
+  type: 'test'
+  ...
+# Subtest: Geocoding rejects too-short search input
+ok 54 - Geocoding rejects too-short search input
+  ---
+  duration_ms: 2.223327
+  type: 'test'
+  ...
+# Subtest: Geocoding returns known city without network calls
+ok 55 - Geocoding returns known city without network calls
+  ---
+  duration_ms: 4.08154
+  type: 'test'
+  ...
+# Subtest: Demo endpoint clearly labels data as invented
+ok 56 - Demo endpoint clearly labels data as invented
+  ---
+  duration_ms: 2.985606
+  type: 'test'
+  ...
+# Subtest: Plan API returns three daily recommendations
+ok 57 - Plan API returns three daily recommendations
+  ---
+  duration_ms: 8.503689
+  type: 'test'
+  ...
+# Subtest: Plan API invalid payload returns a proper client error
+ok 58 - Plan API invalid payload returns a proper client error
+  ---
+  duration_ms: 2.044118
+  type: 'test'
+  ...
+# Subtest: Impact API estimates emissions accurately
+ok 59 - Impact API estimates emissions accurately
+  ---
+  duration_ms: 1.75692
+  type: 'test'
+  ...
+# Subtest: Impact API rejects extreme distance
+ok 60 - Impact API rejects extreme distance
+  ---
+  duration_ms: 1.826055
+  type: 'test'
+  ...
+# Subtest: Chat API rejects trivially short queries
+ok 61 - Chat API rejects trivially short queries
+  ---
+  duration_ms: 2.461504
+  type: 'test'
+  ...
+# Subtest: Chat returns safe rule-based answer without API key
+ok 62 - Chat returns safe rule-based answer without API key
+  ---
+  duration_ms: 6.842997
+  type: 'test'
+  ...
+# Subtest: Chat answer refuses prompt/secret extraction
+ok 63 - Chat answer refuses prompt/secret extraction
+  ---
+  duration_ms: 2.447497
+  type: 'test'
+  ...
+# Subtest: Malformed JSON returns 400
+ok 64 - Malformed JSON returns 400
+  ---
+  duration_ms: 2.471708
+  type: 'test'
+  ...
+# Subtest: Oversized payload is rejected
+ok 65 - Oversized payload is rejected
+  ---
+  duration_ms: 3.454234
+  type: 'test'
+  ...
+# Subtest: Unknown route returns 404 and safe body
+ok 66 - Unknown route returns 404 and safe body
+  ---
+  duration_ms: 1.200645
+  type: 'test'
+  ...
+# Subtest: Unlisted static files are not exposed
+ok 67 - Unlisted static files are not exposed
+  ---
+  duration_ms: 1.41622
+  type: 'test'
+  ...
+# Subtest: Bad API route returns 404
+ok 68 - Bad API route returns 404
+  ---
+  duration_ms: 0.943637
+  type: 'test'
+  ...
+# Subtest: Static script does not expose Gemini key as hardcoded secret
+ok 69 - Static script does not expose Gemini key as hardcoded secret
+  ---
+  duration_ms: 15.787792
+  type: 'test'
+  ...
+# Subtest: Gemini-backed chat sends the server key only to Google endpoint (mocked provider)
+ok 70 - Gemini-backed chat sends the server key only to Google endpoint (mocked provider)
+  ---
+  duration_ms: 7.69766
+  type: 'test'
+  ...
+# Subtest: Gemini provider failure triggers deterministic fallback rather than broken chat
+ok 71 - Gemini provider failure triggers deterministic fallback rather than broken chat
+  ---
+  duration_ms: 3.002807
+  type: 'test'
+  ...
+1..71
+# tests 71
+# suites 0
+# pass 71
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 396.911951

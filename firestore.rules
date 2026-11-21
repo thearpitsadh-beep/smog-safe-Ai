@@ -1,0 +1,286 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global safety net: default deny everything
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Reusable Hardened Primitives ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function hasValidParentAnchor(userId) {
+      return exists(/databases/$(database)/documents/users/$(userId));
+    }
+
+    function isValidSchedule(val) {
+      return val is string && val in ['school', 'office', 'home', 'mixed'];
+    }
+
+    function isValidCommute(val) {
+      return val is string && val in ['car', 'bus', 'metro', 'walk', 'cycle', 'remote'];
+    }
+
+    function isValidBudget(val) {
+      return val is string && val in ['low', 'medium', 'flexible'];
+    }
+
+    function isValidDataStatus(val) {
+      return val is string && val in ['modeled-live-forecast', 'illustrative-demo'];
+    }
+
+    function isValidCoords(lat, lon) {
+      return lat is number && lat >= -90 && lat <= 90 && lon is number && lon >= -180 && lon <= 180;
+    }
+
+    // --- Entity Validation Blueprints ---
+    function isValidUserMeta(data, userId) {
+      return data.keys().hasAll(['uid', 'schemaVersion', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'schemaVersion', 'createdAt', 'updatedAt'])
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.schemaVersion is number
+        && data.schemaVersion == 1
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidPrivateProfile(data, userId) {
+      return data.keys().hasAll([
+          'uid', 'email', 'displayName', 'city', 'country',
+          'latitude', 'longitude', 'schedule', 'commute', 'budget',
+          'children', 'seniors', 'sensitive', 'purifier',
+          'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'uid', 'email', 'displayName', 'city', 'country',
+          'latitude', 'longitude', 'schedule', 'commute', 'budget',
+          'children', 'seniors', 'sensitive', 'purifier',
+          'createdAt', 'updatedAt'
+        ])
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.email is string && data.email.size() <= 254
+        && data.displayName is string && data.displayName.size() <= 80
+        && data.city is string && data.city.size() >= 1 && data.city.size() <= 80
+        && data.country is string && data.country.size() >= 1 && data.country.size() <= 60
+        && isValidCoords(data.latitude, data.longitude)
+        && isValidSchedule(data.schedule)
+        && isValidCommute(data.commute)
+        && isValidBudget(data.budget)
+        && data.children is bool
+        && data.seniors is bool
+        && data.sensitive is bool
+        && data.purifier is bool
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidSavedPlan(data, userId) {
+      return data.keys().hasAll([
+          'uid', 'city', 'country', 'latitude', 'longitude',
+          'dataStatus', 'scale', 'usAqi', 'pm25', 'forecastTimestamp',
+          'sourceLabel', 'intensity', 'actionTitles',
+          'schedule', 'commute', 'budget', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'uid', 'city', 'country', 'latitude', 'longitude',
+          'dataStatus', 'scale', 'usAqi', 'pm25', 'forecastTimestamp',
+          'sourceLabel', 'intensity', 'actionTitles',
+          'schedule', 'commute', 'budget', 'createdAt', 'updatedAt'
+        ])
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.city is string && data.city.size() >= 1 && data.city.size() <= 80
+        && data.country is string && data.country.size() >= 1 && data.country.size() <= 60
+        && isValidCoords(data.latitude, data.longitude)
+        && isValidDataStatus(data.dataStatus)
+        && data.scale is string && data.scale == 'US AQI'
+        && data.usAqi is number && data.usAqi >= 0 && data.usAqi <= 500
+        && data.pm25 is number && data.pm25 >= 0 && data.pm25 <= 1500
+        && data.forecastTimestamp is string && data.forecastTimestamp.size() <= 64
+        && data.sourceLabel is string && data.sourceLabel.size() >= 1 && data.sourceLabel.size() <= 140
+        && data.intensity is string && data.intensity.size() >= 1 && data.intensity.size() <= 100
+        && data.actionTitles is list
+        && data.actionTitles.size() >= 1
+        && data.actionTitles.size() <= 3
+        && data.actionTitles[0] is string
+        && data.actionTitles[0].size() >= 1
+        && data.actionTitles[0].size() <= 160
+        && (data.actionTitles.size() < 2 || (data.actionTitles[1] is string && data.actionTitles[1].size() >= 1 && data.actionTitles[1].size() <= 160))
+        && (data.actionTitles.size() < 3 || (data.actionTitles[2] is string && data.actionTitles[2].size() >= 1 && data.actionTitles[2].size() <= 160))
+        && isValidSchedule(data.schedule)
+        && isValidCommute(data.commute)
+        && isValidBudget(data.budget)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAirLog(data, userId) {
+      return data.keys().hasAll([
+          'uid', 'city', 'usAqi', 'dataStatus', 'actionTaken', 'note', 'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'uid', 'city', 'usAqi', 'dataStatus', 'actionTaken', 'note', 'createdAt'
+        ])
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.city is string && data.city.size() >= 1 && data.city.size() <= 80
+        && data.usAqi is number && data.usAqi >= 0 && data.usAqi <= 500
+        && isValidDataStatus(data.dataStatus)
+        && data.actionTaken is string && data.actionTaken.size() >= 1 && data.actionTaken.size() <= 120
+        && data.note is string && data.note.size() >= 1 && data.note.size() <= 300
+        && data.createdAt is timestamp;
+    }
+
+    // --- Collection Match Blocks ---
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId) && isVerifiedUser();
+      allow list: if false;
+      allow create: if isValidId(userId)
+        && isOwner(userId)
+        && isVerifiedUser()
+        && isValidUserMeta(incoming(), userId)
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(userId)
+        && isOwner(userId)
+        && isVerifiedUser()
+        && isValidUserMeta(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['updatedAt']);
+      allow delete: if false;
+
+      match /private/{docId} {
+        allow get: if isValidId(userId)
+          && isValidId(docId)
+          && docId == 'profile'
+          && isOwner(userId)
+          && isVerifiedUser()
+          && hasValidParentAnchor(userId);
+        allow list: if false;
+        allow create: if isValidId(userId)
+          && isValidId(docId)
+          && docId == 'profile'
+          && isOwner(userId)
+          && isVerifiedUser()
+          && isValidPrivateProfile(incoming(), userId)
+          && incoming().createdAt == request.time
+          && incoming().updatedAt == request.time
+          && hasValidParentAnchor(userId);
+        allow update: if isValidId(userId)
+          && isValidId(docId)
+          && docId == 'profile'
+          && isOwner(userId)
+          && isVerifiedUser()
+          && isValidPrivateProfile(incoming(), userId)
+          && incoming().uid == existing().uid
+          && incoming().createdAt == existing().createdAt
+          && incoming().updatedAt == request.time
+          && hasValidParentAnchor(userId)
+          && (
+            // Action: Update household settings & location
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'displayName', 'email', 'city', 'country', 'latitude', 'longitude',
+              'schedule', 'commute', 'budget', 'children', 'seniors', 'sensitive', 'purifier', 'updatedAt'
+            ])
+          );
+        allow delete: if isValidId(userId)
+          && isValidId(docId)
+          && docId == 'profile'
+          && isOwner(userId)
+          && isVerifiedUser();
+      }
+
+      match /plans/{planId} {
+        allow get: if isValidId(userId)
+          && isValidId(planId)
+          && isOwner(userId)
+          && isVerifiedUser()
+          && hasValidParentAnchor(userId);
+        allow list: if isOwner(userId)
+          && isVerifiedUser()
+          && resource.data.uid == request.auth.uid;
+        allow create: if isValidId(userId)
+          && isValidId(planId)
+          && isOwner(userId)
+          && isVerifiedUser()
+          && isValidSavedPlan(incoming(), userId)
+          && incoming().createdAt == request.time
+          && incoming().updatedAt == request.time
+          && hasValidParentAnchor(userId);
+        allow update: if isValidId(userId)
+          && isValidId(planId)
+          && isOwner(userId)
+          && isVerifiedUser()
+          && isValidSavedPlan(incoming(), userId)
+          && incoming().uid == existing().uid
+          && incoming().createdAt == existing().createdAt
+          && incoming().updatedAt == request.time
+          && hasValidParentAnchor(userId)
+          && (
+            // Action: Refresh snapshot summary or profile linkage
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'intensity', 'actionTitles', 'schedule', 'commute', 'budget', 'updatedAt'
+            ])
+          );
+        allow delete: if isValidId(userId)
+          && isValidId(planId)
+          && isOwner(userId)
+          && isVerifiedUser();
+      }
+
+      match /airLogs/{logId} {
+        allow get: if isValidId(userId)
+          && isValidId(logId)
+          && isOwner(userId)
+          && isVerifiedUser()
+          && hasValidParentAnchor(userId);
+        allow list: if isOwner(userId)
+          && isVerifiedUser()
+          && resource.data.uid == request.auth.uid;
+        allow create: if isValidId(userId)
+          && isValidId(logId)
+          && isOwner(userId)
+          && isVerifiedUser()
+          && isValidAirLog(incoming(), userId)
+          && incoming().createdAt == request.time
+          && hasValidParentAnchor(userId);
+        allow update: if false;
+        allow delete: if isValidId(userId)
+          && isValidId(logId)
+          && isOwner(userId)
+          && isVerifiedUser();
+      }
+    }
+  }
+}

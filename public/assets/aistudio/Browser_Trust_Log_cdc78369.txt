@@ -1,0 +1,6 @@
+
+> smogsafe-ai-executive-v4@4.0.0 browser:trust
+> python3 docs/build_standalone_demo.py && python3 scripts/browser_trust_e2e.py
+
+Generated standalone demo: 98028 characters
+Browser trust-state regression tests: PASSED 2 viewports

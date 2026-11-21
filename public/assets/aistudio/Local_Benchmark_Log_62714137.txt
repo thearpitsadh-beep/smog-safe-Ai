@@ -1,0 +1,12 @@
+
+> smogsafe-ai-executive@3.0.0 benchmark
+> node scripts/benchmark.mjs
+
+{
+  "requests": 60,
+  "errors": 0,
+  "medianMs": 1.31,
+  "p95Ms": 3.86,
+  "maxMs": 27.32,
+  "scope": "local Node HTTP /api/health and /api/demo; excludes Gemini, forecasts, TLS and real network"
+}
